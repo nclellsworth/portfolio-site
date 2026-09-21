@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>At Night This Might Be a Beautiful Place</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+
+    .post-header {
+      padding: 4.5rem 0 3rem;
+      max-width: 580px;
+    }
+
+    .post-header .post-tag {
+      margin-bottom: 1rem;
+    }
+
+    .post-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+
+    .post-header h1 em {
+      font-style: italic;
+      color: var(--neuron);
+    }
+
+    .post-meta {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+
+    /* Divider between header and body */
+
+    .post-divider {
+      border: none;
+      border-top: 0.5px solid var(--faint);
+      margin: 0 0 3.5rem;
+    }
+
+
+    /* ── Post body typography ── */
+
+    .post-body {
+      max-width: 580px;
+      padding-bottom: 5rem;
+    }
+
+    .post-body p {
+      font-size: 1.08rem;
+      line-height: 1.95;
+      color: var(--ink2);
+      margin-bottom: 1.6rem;
+    }
+
+
+    /* Drop cap for normal prose posts */
+
+    .post-body:not(.poem) p:first-of-type::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.6rem;
+      font-weight: 300;
+      float: left;
+      line-height: 0.78;
+      margin: 0.08em 0.08em 0 0;
+      color: var(--neuron);
+    }
+
+
+    /* ── Poetry formatting ── */
+
+    .post-body.poem p {
+      margin: 0 0 1.9rem;
+    }
+
+    .post-body.poem .poem-section {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+
+      margin-top: 3.4rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .post-body.poem .poem-section:first-child {
+      margin-top: 0;
+    }
+
+
+    .post-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin: 3rem 0 1rem;
+      line-height: 1.2;
+    }
+
+    .post-body h3 {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 2.5rem 0 0.8rem;
+    }
+
+
+    /* Pull quote / blockquote */
+
+    .post-body blockquote {
+      margin: 2.5rem 0;
+      padding: 0 0 0 1.5rem;
+      border-left: 1px solid var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+
+    /* Inline image inside a post */
+
+    .post-body figure {
+      margin: 2.5rem 0;
+    }
+
+    .post-body figure img {
+      width: 100%;
+      border: 0.5px solid var(--faint);
+    }
+
+    .post-body figcaption {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+
+    /* Back link */
+
+    .back-link {
+      display: inline-block;
+      margin: 3rem 0 0;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 0.5px solid var(--faint);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+<svg
+  class="bg-neurons"
+  viewBox="0 0 1200 900"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+
+  <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+
+  <line
+    x1="180"
+    y1="310"
+    x2="280"
+    y2="260"
+    stroke="#4a5c3a"
+    stroke-width="1.2"
+  />
+
+  <line
+    x1="280"
+    y1="260"
+    x2="360"
+    y2="220"
+    stroke="#4a5c3a"
+    stroke-width="0.9"
+  />
+
+  <line
+    x1="180"
+    y1="310"
+    x2="120"
+    y2="280"
+    stroke="#4a5c3a"
+    stroke-width="0.9"
+  />
+
+  <path
+    d="M180 310 C220 370 260 400 320 430"
+    stroke="#4a5c3a"
+    stroke-width="1.5"
+    fill="none"
+  />
+
+  <circle cx="900" cy="150" r="7" fill="#8c6a3a"/>
+
+  <line
+    x1="900"
+    y1="150"
+    x2="970"
+    y2="120"
+    stroke="#8c6a3a"
+    stroke-width="1"
+  />
+
+  <path
+    d="M900 150 C870 210 850 270 830 340"
+    stroke="#8c6a3a"
+    stroke-width="1.3"
+    fill="none"
+  />
+
+</svg>
+
+
+<div class="site">
+
+
+  <nav>
+
+    <a href="../index.html" class="nav-name">
+      Nicole Ellsworth
+    </a>
+
+    <ul class="nav-links">
+
+      <li>
+        <a href="../writing.html" class="active">Writing</a>
+      </li>
+
+      <li>
+        <a href="../art.html">Art</a>
+      </li>
+
+      <li>
+        <a href="../about.html">About</a>
+      </li>
+
+    </ul>
+
+  </nav>
+
+
+
+  <div class="post-header fade-up">
+
+    <div class="post-tag">
+      Poetry
+    </div>
+
+    <h1>
+      At Night This Might be a Beautiful Place
+    </h1>
+
+    <div class="post-meta">
+      Sept. 2026
+    </div>
+
+  </div>
+
+
+  <hr class="post-divider">
+
+
+
+  <!-- POEM -->
+
+  <div class="post-body poem fade-up-2">
+
+
+    <p class="poem-section">I</p>
+
+
+    <p>
+      At night,<br>
+      this might be a beautiful place—<br>
+      an orphanage of little suns pressed<br>
+      against rain-slicked windows,<br>
+      light bleeding like honey, soft and slow<br>
+      on the glass.
+    </p>
+
+
+    <p>
+      A boy jumped from one of them last week.<br>
+      We were peeling back the foil on your mother’s pupusas,<br>
+      massa breaking like moondust in my mouth,<br>
+      wet and clinging on the palate;<br>
+      like your love, something innocent<br>
+      to choke through.
+    </p>
+
+
+
+    <p class="poem-section">II.</p>
+
+
+    <p>
+      That thing you never told me—<br>
+      I have only the shape of it,<br>
+      the footprint of your fixations,<br>
+      the weight of your red-eyed wilderness,<br>
+      the whole of your helplessness
+      on mine.
+    </p>
+
+
+    <p>
+      But who am I to judge you, to judge <em>him;</em><br>
+      aren’t we all just weeds,<br>
+      waiting on some lover to make a bouquet of us?<br>
+      What tremble did I twist you from,<br>
+      what terrible hush devoured you when I let go?
+    </p>
+
+
+
+    <p class="poem-section">III.</p>
+
+
+    <p>
+      You lose yourself here<br>
+      where bodies outnumber names.<br>
+      Maybe a painter could find order<br>
+      in the sums of flesh,<br>
+      but he was just a boy<br>
+      seized by our sickness.
+    </p>
+
+
+    <p>
+      I never know who is owed the apology here,<br>
+      who should grieve,<br>
+      who should get down on their knees and beg.
+    </p>
+
+
+
+    <p class="poem-section">IV.</p>
+
+
+    <p>
+      That boy.<br>
+      You didn’t follow him but something fell.<br>
+      The only proof I hold is my own departure—<br>
+      The scent of your vomit on stone.<br>
+      The strike of your finger at my breastbone,<br>
+      pounding, praying.
+
+      I prayed the proof of my crime would die<br>
+      in your disappearance,<br>
+      in the girl I shed for these womanly bones.<br>
+      But the truth is, a tree falls<br>
+      no matter the witness.<br>
+      Sensibility ducks out from under it.<br>
+      Cruelty pretends not to hear the crash.
+    </p>
+
+
+
+    <p class="poem-section">V.</p>
+
+
+    <p>
+      Blur your eyes, and the glass becomes stars.<br>
+      This candle we lit for a cruel love,<br>
+      only our bodies know<br>
+      what monsters their shadows cast.
+    </p>
+
+
+    <p>
+      We knew it then, and we know it now:<br>
+      not all light leads to greater light.<br>
+      Sometimes there is shadow.<br>
+      Sometimes there is shade.<br>
+      Sometimes there is just a warm August breeze<br>
+      soothing a grieving mother to sleep.
+    </p>
+
+
+  </div>
+
+  <!-- END POEM -->
+
+
+
+  <a href="../writing.html" class="back-link">
+    ← All writing
+  </a>
+
+
+  <footer>
+    <span>© 2026 Nicole Ellsworth</span>
+  </footer>
+
+
+</div>
+
+
+</body>
+</html>

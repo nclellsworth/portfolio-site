@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art — Nicole Ellsworth</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 0.5px solid var(--faint);
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+    .page-header p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+ /* ─────────────────────────────────────────
+   ART GALLERY
+   Clean two-column portfolio grid
+   ───────────────────────────────────────── */
+
+.gallery {
+  padding: 3rem 0 4rem;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 18px;
+  width: 100% !important;
+  max-width: none !important;
+  columns: unset !important;
+  column-count: unset !important;
+}
+
+/* Individual artwork */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+/* Artwork itself */
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s ease;
+}
+
+/* Slight refinement when hovering */
+.gallery-item:hover img {
+  opacity: 0.94;
+  transform: scale(1.005);
+}
+
+
+/* ─────────────────────────────────────────
+   CAPTION OVERLAY
+   ───────────────────────────────────────── */
+
+.gallery-item .caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding: 2.5rem 1rem 0.9rem;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(20, 18, 15, 0.72)
+    );
+
+  opacity: 0;
+
+  transition: opacity 0.25s ease;
+
+  pointer-events: none;
+}
+
+.gallery-item:hover .caption {
+  opacity: 1;
+}
+
+.caption-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #f7f4ef;
+  display: block;
+}
+
+.caption-medium {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: rgba(247, 244, 239, 0.72);
+
+  display: block;
+  margin-top: 3px;
+}
+
+
+/* ─────────────────────────────────────────
+   MOBILE
+   ───────────────────────────────────────── */
+
+@media (max-width: 650px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-top: 2rem;
+  }
+}
+
+/* ─────────────────────────────────────────
+   LIGHTBOX — full-size artwork viewer
+   ───────────────────────────────────────── */
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+
+  background: rgba(20, 18, 15, 0.94);
+
+  z-index: 1000;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 3rem;
+}
+
+/* Show lightbox after artwork is clicked */
+.lightbox.open {
+  display: flex;
+}
+
+/* Full artwork */
+.lightbox img {
+  display: block;
+
+  max-width: 92vw;
+  max-height: 90vh;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* Close button */
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.75rem;
+
+  border: none;
+  background: none;
+
+  color: rgba(247, 244, 239, 0.7);
+
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 300;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.lightbox-close:hover {
+  color: #f7f4ef;
+}
+  </style>
+</head>
+<body>
+
+<svg class="bg-neurons" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+  <line x1="180" y1="310" x2="280" y2="260" stroke="#4a5c3a" stroke-width="1.2"/>
+  <line x1="280" y1="260" x2="360" y2="220" stroke="#4a5c3a" stroke-width="0.9"/>
+  <line x1="180" y1="310" x2="120" y2="280" stroke="#4a5c3a" stroke-width="0.9"/>
+  <path d="M180 310 C220 370 260 400 320 430" stroke="#4a5c3a" stroke-width="1.5" fill="none"/>
+  <circle cx="900" cy="150" r="7" fill="#8c6a3a"/>
+  <line x1="900" y1="150" x2="970" y2="120" stroke="#8c6a3a" stroke-width="1"/>
+  <path d="M900 150 C870 210 850 270 830 340" stroke="#8c6a3a" stroke-width="1.3" fill="none"/>
+</svg>
+
+<div class="site">
+
+  <nav>
+    <a href="index.html" class="nav-name">Nicole Ellsworth</a>
+    <ul class="nav-links">
+      <li><a href="writing.html">Writing</a></li>
+      <li><a href="art.html" class="active">Art</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header fade-up">
+    <h1>Art</h1>
+    <!-- EDIT: Change this description -->
+    <p>Drawings, paintings, and observations.</p>
+  </div>
+
+  <!-- ============================================================
+       GALLERY
+       HOW TO ADD YOUR OWN ARTWORK:
+
+       1. Create a folder called "images" next to this file
+       2. Put your image files in it (jpg, png, webp all work)
+       3. Replace each <div class="gallery-placeholder"> block with:
+
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="images/your-filename.jpg" alt="Brief description">
+            <div class="caption">
+              <span class="caption-title">Title of the work</span>
+              <span class="caption-medium">Ink on paper · 2025</span>
+            </div>
+          </div>
+
+       4. Repeat for each piece — they'll arrange automatically in two columns.
+          Mix portrait and landscape images freely; the masonry layout handles it.
+       ============================================================ -->
+  <div class="gallery fade-up-2">
+
+    <!-- three --> 
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Flash Back.jpg" alt="Today, we are briefly beautiful">
+    <div class="caption">
+      <span class="caption-title">Today, we are briefly beautiful</span>
+      <span class="caption-medium">Chalk pastel on paper</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Look Out.jpg" alt="Guardian">
+    <div class="caption">
+      <span class="caption-title">Guardian</span>
+      <span class="caption-medium">Watercolor on paper</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/lily.jpeg" alt="I remember now">
+    <div class="caption">
+      <span class="caption-title">I remember now</span>
+      <span class="caption-medium">Colored pencil and oil pastel on paper</span>
+    </div>
+  </div>
+
+   <!-- three --> 
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/jellyfish.jpg" alt="The Dreamer">
+    <div class="caption">
+      <span class="caption-title">The Dreamer</span>
+      <span class="caption-medium">Colored pencil on paper</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/penguins.jpg" alt="Imagine">
+    <div class="caption">
+      <span class="caption-title">Imagine</span>
+      <span class="caption-medium">Colored pencil and oil pastel on paper</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/arrival.jpg" alt="If we were aliens">
+    <div class="caption">
+      <span class="caption-title">If we were aliens</span>
+      <span class="caption-medium">Oil pstel on paper</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/ghosts.jpg" alt="He remembers">
+    <div class="caption">
+      <span class="caption-title">He remembers</span>
+      <span class="caption-medium">Watercolor and colored pencil on paper</span>
+    </div>
+  </div>
+
+   <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Stardust.jpg" alt="Stardust">
+    <div class="caption">
+      <span class="caption-title">Stardust</span>
+      <span class="caption-medium">Colored pencil on paper. Reference photo from unknown source, 
+        composition credit goes to the amazing photographer and makeup artist.</span>
+    </div>
+  </div>
+
+   <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/selfPortrait.jpg" alt="When summer tasted like pink skies and grapes">
+    <div class="caption">
+      <span class="caption-title">When summer tasted like pink skies and grapes</span>
+      <span class="caption-medium">Oil on wooden panel</span>
+    </div>
+  </div>
+
+   <!-- three --> 
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/end.jpg" alt="The artist">
+    <div class="caption">
+      <span class="caption-title">The artist</span>
+      <span class="caption-medium">Digital composition draft</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/wildfire.jpg" alt="Happy">
+    <div class="caption">
+      <span class="caption-title">Happy</span>
+      <span class="caption-medium">Watercolor and pencil on paper</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/gold.jpeg" alt="Draft 1">
+    <div class="caption">
+      <span class="caption-title">Draft 1</span>
+      <span class="caption-medium">Acrylic and ink</span>
+    </div>
+  </div>
+
+  
+
+   <!-- three --> 
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/shadow.jpg" alt="Faith">
+    <div class="caption">
+      <span class="caption-title">Faith</span>
+      <span class="caption-medium">Acrylic on canvas</span>
+    </div>
+  </div>
+
+   <!-- three --> 
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Flight Path.JPG" alt="Flightpath">
+    <div class="caption">
+      <span class="caption-title">Flightpath</span>
+      <span class="caption-medium">Pencil on paper</span>
+    </div>
+  </div>
+
+     <!-- three --> 
+
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/woods.jpg" alt="The moon remembers us tonight">
+    <div class="caption">
+      <span class="caption-title">The moon remembers us tonight</span>
+      <span class="caption-medium">Acrylic on canvas</span>
+    </div>
+  </div>
+
+   <!-- three --> 
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Cryptocrystalline.jpg" alt="The collector's muse">
+    <div class="caption">
+      <span class="caption-title">The collector's muse</span>
+      <span class="caption-medium">Colored pencil and charcoal on paper.</span>
+    </div>
+  </div>
+
+    <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Revelation.JPG" alt="It was easier, being empty">
+    <div class="caption">
+      <span class="caption-title">It was easier, being empty</span>
+      <span class="caption-medium">Pencil on paper</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Memory of Skin.JPG" alt="Memory of skin">
+    <div class="caption">
+      <span class="caption-title">Memory of skin</span>
+      <span class="caption-medium">Colored pencil on paper</span>
+    </div>
+  </div>
+
+   <!-- three --> 
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Girl in the Blue Forest.JPG" alt="Girl in the blue forest">
+    <div class="caption">
+      <span class="caption-title">Girl in the blue forest</span>
+      <span class="caption-medium">Watercolor on paper</span>
+    </div>
+  </div>
+
+    <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Rowbe.jpg" alt="Rowbe">
+    <div class="caption">
+      <span class="caption-title">Rowbe</span>
+      <span class="caption-medium">Chalk pastel on paper. Commission for a lovely woman and her gentle horse.</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Serendipity.jpg" alt="Portrait of a stranger">
+    <div class="caption">
+      <span class="caption-title">Portrait of a stranger</span>
+      <span class="caption-medium">Watercolor and pencil on paper</span>
+    </div>
+  </div>
+
+     <!-- three --> 
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Hello my Old Heart.jpg" alt="Hello my Old Heart">
+    <div class="caption">
+      <span class="caption-title">Hello my Old Heart</span>
+      <span class="caption-medium">Acrylic and pencil on paper. Title from the Oh Hellos.</span>
+    </div>
+  </div>
+
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/Preacher.jpg" alt="Portrait study">
+    <div class="caption">
+      <span class="caption-title">Portrait study</span>
+      <span class="caption-medium">Pencil on paper. Reference photo credit goes to unknown photographer. Background was my addition.</span>
+    </div>
+  </div>
+
+  <div class="gallery-item" onclick="openLightbox(this)">
+    <img src="artImages/The War.jpg" alt="The War">
+    <div class="caption">
+      <span class="caption-title">The War</span>
+      <span class="caption-medium">Mechanical pencil on paper</span>
+    </div>
+  </div>
+
+</div><!-- END GALLERY -->
+
+  <footer>
+    <span>© 2026 Nicole Ellsworth</span>
+  </footer>
+
+</div>
+
+<!-- Lightbox overlay (appears when you click an image) -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">Close ✕</button>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
+
+<script>
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    if (!img) return;
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-img').alt = img.alt;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

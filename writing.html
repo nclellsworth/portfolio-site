@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing — Your Name</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-header {
+      padding: 4rem 0 3rem;
+      border-bottom: 0.5px solid var(--faint);
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+    .page-header p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Filter tabs */
+    .filter-row {
+      display: flex;
+      gap: 1.5rem;
+      padding: 2rem 0 0;
+      list-style: none;
+    }
+    .filter-row button {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 0 4px;
+      border-bottom: 0.5px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .filter-row button:hover,
+    .filter-row button.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    /* Post list */
+    .post-list {
+      padding: 1rem 0 4rem;
+    }
+
+    .post-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1.8rem 0;
+      border-bottom: 0.5px solid var(--faint);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: grid;
+    }
+    .post-row:hover .post-row-title { color: var(--neuron); }
+
+    .post-row-left { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .post-row-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.25;
+      transition: color 0.2s;
+    }
+    .post-row-excerpt {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .post-row-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.2rem;
+    }
+    .post-row-date {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: var(--faint);
+      white-space: nowrap;
+      align-self: start;
+      padding-top: 0.4rem;
+    }
+
+    /* Hidden state for JS filtering */
+    .post-row[data-hidden="true"] { display: none; }
+  </style>
+</head>
+<body>
+
+<svg class="bg-neurons" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+  <line x1="180" y1="310" x2="280" y2="260" stroke="#4a5c3a" stroke-width="1.2"/>
+  <line x1="280" y1="260" x2="360" y2="220" stroke="#4a5c3a" stroke-width="0.9"/>
+  <line x1="360" y1="220" x2="430" y2="190" stroke="#4a5c3a" stroke-width="0.7"/>
+  <line x1="180" y1="310" x2="120" y2="280" stroke="#4a5c3a" stroke-width="0.9"/>
+  <path d="M180 310 C220 370 260 400 320 430" stroke="#4a5c3a" stroke-width="1.5" fill="none"/>
+  <path d="M320 430 C380 460 450 470 510 490" stroke="#4a5c3a" stroke-width="1.2" fill="none"/>
+  <circle cx="900" cy="150" r="7" fill="#8c6a3a"/>
+  <line x1="900" y1="150" x2="970" y2="120" stroke="#8c6a3a" stroke-width="1"/>
+  <line x1="900" y1="150" x2="840" y2="130" stroke="#8c6a3a" stroke-width="0.9"/>
+  <path d="M900 150 C870 210 850 270 830 340" stroke="#8c6a3a" stroke-width="1.3" fill="none"/>
+</svg>
+
+<div class="site">
+
+  <nav>
+    <a href="index.html" class="nav-name">Nicole Ellsworth</a>
+    <ul class="nav-links">
+      <li><a href="writing.html" class="active">Writing</a></li>
+      <li><a href="art.html">Art</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header fade-up">
+    <h1>Writing</h1>
+    <!-- EDIT: Change this description if you like -->
+  </div>
+
+  <!-- Filter buttons — controlled by the script at the bottom -->
+  <ul class="filter-row fade-up-2">
+    <li><button class="active" data-filter="all">All</button></li> 
+    <!-- <li><button data-filter="Science">Science</button></li> -->
+    <li><button data-filter="Essay">Essay</button></li>
+    <!-- <li><button data-filter="Fiction">Fiction</button></li> -->
+    <li><button data-filter="Poetry">Poetry</button></li>
+  </ul>
+
+  <!-- ============================================================
+       POST LIST
+       HOW TO ADD A NEW POST:
+         1. Copy one <a class="post-row"> block
+         2. Paste it at the TOP of this list (newest first)
+         3. Update: href, data-tag, post-row-title, post-row-excerpt, post-row-date
+         4. Make sure data-tag exactly matches a filter button label
+            (Science / Essay / Fiction / Poetry)
+         5. Create a matching post file in the /posts/ folder
+            (copy post-template.html and fill it in)
+       ============================================================ -->
+  <div class="post-list fade-up-3">
+
+    <!-- ── POST ENTRY ─────────────────────────────────────────── -->
+    <a href="posts/beautiful place.html" class="post-row" data-tag="Poetry">
+      <div class="post-row-left">
+        <div class="post-tag">Poetry</div>
+        <div class="post-row-title">At Night This Might be a Beautiful Place</div>
+        <div class="post-row-excerpt">At night, this might be a beautiful place—an orphanage of suns pressed against rain-slicked windows,</div>
+      </div>
+      <div class="post-row-date">December 2024</div>
+    </a>
+
+    <!-- ── POST ENTRY ─────────────────────────────────────────── -->
+    <a href="posts/Aisle7.html" class="post-row" data-tag="Poetry">
+      <div class="post-row-left">
+        <div class="post-tag">Poetry</div>
+        <div class="post-row-title">If He Found you in Aisle Seven</div>
+        <div class="post-row-excerpt">This was meant to be a quiet kind of morning,</div>
+      </div>
+      <div class="post-row-date">December 2025</div>
+    </a>
+
+    <!-- ── POST ENTRY ─────────────────────────────────────────── -->
+    <a href="posts/stopping-by-the-woods.html" class="post-row" data-tag="Essay">
+      <div class="post-row-left">
+        <div class="post-tag">Essay</div>
+        <div class="post-row-title">Stopping by the Woods</div>
+        <div class="post-row-excerpt">After my grandmother died, my mother built a house on top of my grandmother's home.</div>
+      </div>
+      <div class="post-row-date">April 2025</div>
+    </a>
+
+    <!-- ── POST ENTRY ─────────────────────────────────────────── -->
+    <a href="posts/rumi.html" class="post-row" data-tag="Poetry">
+      <div class="post-row-left">
+        <div class="post-tag">Poetry</div>
+        <div class="post-row-title">What I Learned from Rumi</div>
+        <div class="post-row-excerpt"> Don’t forget this language of love,</div>
+      </div>
+      <div class="post-row-date">December 2024</div>
+    </a>
+
+    <!-- ── POST ENTRY ─────────────────────────────────────────── -->
+    <a href="posts/selfPortrait.html" class="post-row" data-tag="Poetry">
+      <div class="post-row-left">
+        <div class="post-tag">Poetry</div>
+        <div class="post-row-title">Self Portrait</div>
+        <div class="post-row-excerpt"> Call me a scientist, a collection of experiments and crooked questions</div>
+      </div>
+      <div class="post-row-date">March 2024</div>
+    </a>
+
+  </div><!-- /post-list -->
+
+  <footer>
+    <span>© 2026 Nicole Ellsworth</span>
+  </footer>
+
+</div>
+
+<script>
+  // Filter buttons — no framework needed
+  const buttons = document.querySelectorAll('.filter-row button');
+  const rows    = document.querySelectorAll('.post-row');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      rows.forEach(row => {
+        row.dataset.hidden = (filter !== 'all' && row.dataset.tag !== filter) ? 'true' : 'false';
+      });
+    });
+  });
+</script>
+</body>
+</html>

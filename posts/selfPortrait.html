@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Self Portrait — Nicole Ellsworth</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .post-header {
+      padding: 4.5rem 0 3rem;
+      max-width: 580px;
+    }
+
+    .post-header .post-tag {
+      margin-bottom: 1rem;
+    }
+
+    .post-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+
+    .post-header h1 em {
+      font-style: italic;
+      color: var(--neuron);
+    }
+
+    .post-meta {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    /* Divider between header and body */
+    .post-divider {
+      border: none;
+      border-top: 0.5px solid var(--faint);
+      margin: 0 0 3.5rem;
+    }
+
+    /* ── Post body typography ── */
+    .post-body {
+      max-width: 580px;
+      padding-bottom: 5rem;
+    }
+
+    .post-body p {
+      font-size: 1.08rem;
+      line-height: 1.95;
+      color: var(--ink2);
+      margin-bottom: 1.8rem;
+    }
+
+    /* No drop cap for poems */
+    .post-body.poem p:first-of-type::first-letter {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      float: none;
+      line-height: inherit;
+      margin: 0;
+      color: inherit;
+    }
+
+    .post-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin: 3rem 0 1rem;
+      line-height: 1.2;
+    }
+
+    .post-body h3 {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 2.5rem 0 0.8rem;
+    }
+
+    /* Pull quote / blockquote */
+    .post-body blockquote {
+      margin: 2.5rem 0;
+      padding: 0 0 0 1.5rem;
+      border-left: 1px solid var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    /* Inline image inside a post */
+    .post-body figure {
+      margin: 2.5rem 0;
+    }
+
+    .post-body figure img {
+      width: 100%;
+      border: 0.5px solid var(--faint);
+    }
+
+    .post-body figcaption {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      margin: 3rem 0 0;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 0.5px solid var(--faint);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+  </style>
+</head>
+
+<body>
+
+<svg class="bg-neurons" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+  <line x1="180" y1="310" x2="280" y2="260" stroke="#4a5c3a" stroke-width="1.2"/>
+  <line x1="280" y1="260" x2="360" y2="220" stroke="#4a5c3a" stroke-width="0.9"/>
+  <line x1="180" y1="310" x2="120" y2="280" stroke="#4a5c3a" stroke-width="0.9"/>
+  <path d="M180 310 C220 370 260 400 320 430" stroke="#4a5c3a" stroke-width="1.5" fill="none"/>
+  <circle cx="900" cy="150" r="7" fill="#8c6a3a"/>
+  <line x1="900" y1="150" x2="970" y2="120" stroke="#8c6a3a" stroke-width="1"/>
+  <path d="M900 150 C870 210 850 270 830 340" stroke="#8c6a3a" stroke-width="1.3" fill="none"/>
+</svg>
+
+<div class="site">
+
+  <nav>
+    <a href="../index.html" class="nav-name">Nicole Ellsworth</a>
+
+    <ul class="nav-links">
+      <li><a href="../writing.html" class="active">Writing</a></li>
+      <li><a href="../art.html">Art</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- POST HEADER -->
+
+  <div class="post-header fade-up">
+    <div class="post-tag">Poetry</div>
+
+    <h1>Self Portrait</h1>
+
+    <div class="post-meta">Sept. 15, 2026</div>
+  </div>
+
+  <hr class="post-divider">
+
+
+  <!-- POEM -->
+
+  <div class="post-body poem fade-up-2">
+
+    <p>
+      Call me a scientist,<br>
+      a collection of experiments<br>
+      and crooked questions
+    </p>
+
+    <p>
+      like where is the <em>why</em> in Time<br>
+      and who wrote my fate<br>
+      in the shape of a lotus seed
+    </p>
+
+    <p>
+      which after so many centuries<br>
+      rooted in hospitals and EKGs<br>
+      stopped searching for the betrayal<br>
+      in curiosity<br>
+      and simply bloomed<br>
+      like the virgin sun,<br>
+      breaking the world<br>
+      back to white.
+    </p>
+
+    <p>
+      When I hatched, I did it between<br>
+      the tear-dampened pages<br>
+      of my grandmother’s dictionary.
+    </p>
+
+    <p>
+      I thought if I followed the language<br>
+      I would find a body;<br>
+      something to prove that she was <em>there</em>.
+    </p>
+
+    <p>
+      But there are so many words<br>
+      and so many voices and I don’t remember<br>
+      which she loved more:
+    </p>
+
+    <p>
+      the language or<br>
+      the people who spoke it.<br>
+      So many words,
+    </p>
+
+    <p>
+      so many ways to distract oneself<br>
+      from the loneliness that comes<br>
+      with being an earthworm’s dream,
+    </p>
+
+    <p>
+      foam flowers and biblioklepts,<br>
+      magpies and monasteries,<br>
+      flatlines and faultlines finding faults
+    </p>
+
+    <p>
+      in our facades—<em>questions.</em><br>
+      <em>limits.</em><br>
+      The difference between carbon<br>
+      monoxide and a tired garage;
+    </p>
+
+    <p>
+      that is both a question and a solution.<br>
+      Closure, closing, closeness.<br>
+      <em>intimacy is what I’m afraid of,</em>
+    </p>
+
+    <p>
+      Questions.<br>
+      That virgin word, that definition of a curve—<br>
+      <em>Calculus</em>.
+    </p>
+
+    <p>
+      Sepsis and a DNR.<br>
+      Eyes that don’t remember how to shut.
+    </p>
+
+    <p>
+      If I love you enough,<br>
+      won’t you pretend you’re listening?
+    </p>
+
+  </div>
+
+  <!-- END POEM -->
+
+
+  <a href="../writing.html" class="back-link">← All writing</a>
+
+  <footer>
+    <span>© 2026 Nicole Ellsworth</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

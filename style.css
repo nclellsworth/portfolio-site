@@ -1,0 +1,164 @@
+/* ============================================================
+   PORTFOLIO — Shared Stylesheet
+   ============================================================
+   Fonts: EB Garamond (body), Cormorant Garamond (display), Lato (small caps/labels)
+   Colors: warm paper palette with moss green + ochre accents
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap');
+
+/* --- Variables --- */
+:root {
+  --ink:     #1a1814;
+  --ink2:    #3d3930;
+  --muted:   #7a7268;
+  --faint:   #c8c2b8;
+  --paper:   #f7f4ef;
+  --paper2:  #eee9e0;
+  --moss:    #4a5c3a;
+  --neuron:  #8c6a3a;
+  --accent:  #b8956a;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* --- Base --- */
+html { font-size: 16px; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Layout wrapper --- */
+.site {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 3.5rem;
+}
+
+/* ============================================================
+   BACKGROUND NEURONS (decorative SVG, fixed behind everything)
+   ============================================================ */
+.bg-neurons {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.055;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5rem 0 2rem;
+  border-bottom: 0.5px solid var(--faint);
+}
+
+.nav-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  transition: color 0.2s;
+}
+.nav-name:hover { color: var(--neuron); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--ink); }
+
+/* ============================================================
+   SECTION LABELS  (e.g. "Recent writing")
+   ============================================================ */
+.section-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: var(--faint);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  padding: 2rem 0;
+  margin-top: 0;
+  border-top: 0.5px solid var(--faint);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer span {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+}
+
+/* ============================================================
+   POST TAG PILL  (Science / Essay / Fiction / etc.)
+   ============================================================ */
+.post-tag {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* ============================================================
+   PAGE-ENTER ANIMATION
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.8s ease both; }
+.fade-up-2 { animation: fadeUp 0.8s ease both 0.12s; }
+.fade-up-3 { animation: fadeUp 0.8s ease both 0.24s; }
+.fade-up-4 { animation: fadeUp 0.8s ease both 0.36s; }

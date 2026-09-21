@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDIT: Change to your post title -->
+  <title>Post Title — Your Name</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .post-header {
+      padding: 4.5rem 0 3rem;
+      max-width: 580px;
+    }
+    .post-header .post-tag { margin-bottom: 1rem; }
+    .post-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+    .post-header h1 em { font-style: italic; color: var(--neuron); }
+    .post-meta {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    /* Divider between header and body */
+    .post-divider {
+      border: none;
+      border-top: 0.5px solid var(--faint);
+      margin: 0 0 3.5rem;
+    }
+
+    /* ── Post body typography ── */
+    .post-body {
+      max-width: 580px;
+      padding-bottom: 5rem;
+    }
+
+    .post-body p {
+      font-size: 1.08rem;
+      line-height: 1.95;
+      color: var(--ink2);
+      margin-bottom: 1.6rem;
+    }
+
+    /* Drop cap on the very first paragraph */
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.6rem;
+      font-weight: 300;
+      float: left;
+      line-height: 0.78;
+      margin: 0.08em 0.08em 0 0;
+      color: var(--neuron);
+    }
+
+    .post-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin: 3rem 0 1rem;
+      line-height: 1.2;
+    }
+
+    .post-body h3 {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 2.5rem 0 0.8rem;
+    }
+
+    /* Pull quote / blockquote */
+    .post-body blockquote {
+      margin: 2.5rem 0;
+      padding: 0 0 0 1.5rem;
+      border-left: 1px solid var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    /* Inline image inside a post */
+    .post-body figure {
+      margin: 2.5rem 0;
+    }
+    .post-body figure img {
+      width: 100%;
+      border: 0.5px solid var(--faint);
+    }
+    .post-body figcaption {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      margin: 3rem 0 0;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 0.5px solid var(--faint);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { color: var(--ink); border-color: var(--ink); }
+  </style>
+</head>
+<body>
+
+<svg class="bg-neurons" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+  <line x1="180" y1="310" x2="280" y2="260" stroke="#4a5c3a" stroke-width="1.2"/>
+  <line x1="280" y1="260" x2="360" y2="220" stroke="#4a5c3a" stroke-width="0.9"/>
+  <line x1="180" y1="310" x2="120" y2="280" stroke="#4a5c3a" stroke-width="0.9"/>
+  <path d="M180 310 C220 370 260 400 320 430" stroke="#4a5c3a" stroke-width="1.5" fill="none"/>
+  <circle cx="900" cy="150" r="7" fill="#8c6a3a"/>
+  <line x1="900" y1="150" x2="970" y2="120" stroke="#8c6a3a" stroke-width="1"/>
+  <path d="M900 150 C870 210 850 270 830 340" stroke="#8c6a3a" stroke-width="1.3" fill="none"/>
+</svg>
+
+<div class="site">
+
+  <nav>
+    <a href="../index.html" class="nav-name">Your Name</a>
+    <ul class="nav-links">
+      <li><a href="../writing.html" class="active">Writing</a></li>
+      <li><a href="../art.html">Art</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       POST HEADER
+       EDIT: Update tag, title, and date for each new post
+       ============================================================ -->
+  <div class="post-header fade-up">
+    <div class="post-tag">Science</div>  <!-- EDIT: Science / Essay / Fiction / Poetry -->
+    <h1>How the brain finds <em>patterns</em> in fog</h1>
+    <div class="post-meta">June 2025 · 6 min read</div>  <!-- EDIT: date and read time -->
+  </div>
+
+  <hr class="post-divider">
+
+  <!-- ============================================================
+       POST BODY
+       EDIT: Replace everything between these comments with your writing.
+
+       FORMATTING GUIDE:
+         Paragraphs:   wrap in <p> ... </p>
+         Subheadings:  use <h2> for sections, <h3> for smaller labels
+         Pull quotes:  use <blockquote> ... </blockquote>
+         Images:       use <figure><img src="..." alt="..."><figcaption>caption</figcaption></figure>
+         Italic:       <em>word</em>
+         Bold:         <strong>word</strong>
+       ============================================================ -->
+  <div class="post-body fade-up-2">
+
+    <p>There is a moment, halfway through a foggy morning run, when the world resolves. What was a smear of pale grey becomes individual trees, a road, a dog on a leash. The brain did not wait for clarity — it guessed, revised, guessed again, and somewhere in that loop, the fog became a forest.</p>
+
+    <p>This is, more or less, what neuroscientists mean by predictive coding: the idea that perception is not a passive recording of the world but an active, ongoing prediction. The brain is constantly generating a model of what it expects to see, hear, and feel, and constantly updating that model based on incoming signals.</p>
+
+    <h2>The error signal</h2>
+
+    <p>What travels up the sensory hierarchy is not raw experience but surprise — the gap between what was predicted and what arrived. If the brain expected silence and heard a footstep, that mismatch becomes the signal. If it expected a face and got a face, almost nothing travels upward at all.</p>
+
+    <blockquote>Perception is controlled hallucination. The world we see is largely the world we expect to see.</blockquote>
+
+    <p>This has strange implications. It means the visual cortex is doing something closer to dreaming than photographing. It means attention is really a way of allocating prediction resources. It means that what we call "seeing" is already deeply shaped by what we've seen before.</p>
+
+    <h2>What this means for learning</h2>
+
+    <p>If you are learning something truly new — a new language, a new instrument, a new landscape — the prediction errors are enormous. Everything is surprising. This is cognitively expensive and emotionally uncomfortable, which is why novelty is tiring. But it is also, neuroscientists argue, exactly when the most learning happens.</p>
+
+    <p>The fog resolves not because the light improved, but because the brain finally built a model good enough to guess the trees.</p>
+
+  </div>
+  <!-- END POST BODY -->
+
+  <a href="../writing.html" class="back-link">← All writing</a>
+
+  <footer>
+    <span>© 2025 Your Name</span>
+    <span>Made with curiosity</span>
+  </footer>
+
+</div>
+</body>
+</html>

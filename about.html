@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Nicole Ellsworth</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .about-layout {
+      padding: 5rem 0 5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* Bio */
+    .about-bio h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 2rem;
+      line-height: 1.15;
+    }
+
+    .about-bio h1 em {
+      font-style: italic;
+      color: var(--neuron);
+    }
+
+    .about-bio p {
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: var(--ink2);
+      margin-bottom: 1.5rem;
+      max-width: 620px;
+    }
+
+    .about-bio p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* Bio photo */
+    .bio-photo {
+      width: 100%;
+      aspect-ratio: 6 / 8;
+      object-fit: cover;
+      display: block;
+      border: 0.5px solid var(--faint);
+    }
+
+    /* Mobile */
+    @media (max-width: 760px) {
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 3rem 0 4rem;
+      }
+
+      .bio-photo {
+        max-width: 320px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <svg
+    class="bg-neurons"
+    viewBox="0 0 1200 900"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+
+    <line
+      x1="180"
+      y1="310"
+      x2="280"
+      y2="260"
+      stroke="#4a5c3a"
+      stroke-width="1.2"
+    />
+
+    <line
+      x1="280"
+      y1="260"
+      x2="360"
+      y2="220"
+      stroke="#4a5c3a"
+      stroke-width="0.9"
+    />
+
+    <line
+      x1="180"
+      y1="310"
+      x2="120"
+      y2="280"
+      stroke="#4a5c3a"
+      stroke-width="0.9"
+    />
+
+    <path
+      d="M180 310 C220 370 260 400 320 430"
+      stroke="#4a5c3a"
+      stroke-width="1.5"
+      fill="none"
+    />
+
+    <circle cx="900" cy="150" r="7" fill="#8c6a3a"/>
+
+    <line
+      x1="900"
+      y1="150"
+      x2="970"
+      y2="120"
+      stroke="#8c6a3a"
+      stroke-width="1"
+    />
+
+    <path
+      d="M900 150 C870 210 850 270 830 340"
+      stroke="#8c6a3a"
+      stroke-width="1.3"
+      fill="none"
+    />
+  </svg>
+
+  <div class="site">
+
+    <nav>
+      <a href="index.html" class="nav-name">Nicole Ellsworth</a>
+
+      <ul class="nav-links">
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="art.html">Art</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul>
+    </nav>
+
+    <main class="about-layout">
+
+      <div class="about-bio fade-up">
+         <p>Alongside pursuing a medical career, I also create art. Creating art helps me shape the way I interpret my own experiences and the world around me,
+          which I find especially critical as my life gets busier and more complex. In addition to creating paintings and poetry, I also care for an extensive plant
+          collection, which feels like a creation of its own. Though you won't find plants in my website, you will find many art pieces inspired our often conflicted
+          relationship with nature. 
+         </p>
+      </div>
+
+      <div class="fade-up-2">
+        <img
+          src="bioPic.JPG"
+          alt="Nicole Ellsworth"
+          class="bio-photo"
+        >
+      </div> 
+
+    </main>
+
+    <footer>
+      <span>© 2026 Nicole Ellsworth</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

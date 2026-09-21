@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>We Don't Eat — Nicole Ellsworth</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a { color: inherit; text-decoration: none; }
+
+    :root {
+      --ink:    #1a1814;
+      --ink2:   #3d3930;
+      --muted:  #7a7268;
+      --faint:  #c8c2b8;
+      --paper:  #f7f4ef;
+      --paper2: #eee9e0;
+      --moss:   #4a5c3a;
+      --neuron: #8c6a3a;
+      --accent: #b8956a;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .bg-neurons {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; opacity: 0.055;
+    }
+
+    .site {
+      position: relative; z-index: 1;
+      max-width: 1080px; margin: 0 auto; padding: 0 3.5rem;
+    }
+
+    /* Nav */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 2.5rem 0 2rem; border-bottom: 0.5px solid var(--faint);
+    }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+      font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink2); transition: color 0.2s;
+    }
+    .nav-name:hover { color: var(--neuron); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Lato', sans-serif; font-size: 0.68rem;
+      font-weight: 300; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+    /* Post header */
+    .post-header { padding: 5rem 0 0; max-width: 660px; }
+    .post-tag {
+      font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 400;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.2rem; display: inline-block;
+    }
+    .post-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 1rem;
+    }
+    .post-header h1 em { font-style: italic; color: var(--neuron); }
+    .post-subtitle {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+      font-weight: 300; font-style: italic; color: var(--muted);
+      margin-bottom: 2rem; line-height: 1.5;
+    }
+    .post-meta {
+      font-family: 'Lato', sans-serif; font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint);
+      display: flex; gap: 1.5rem;
+      padding-bottom: 2.5rem; border-bottom: 0.5px solid var(--faint);
+    }
+
+    /* Post layout */
+    .post-layout {
+      padding: 3.5rem 0 5rem;
+      max-width: 660px;
+    }
+
+    /* Figure */
+    .post-figure {
+      margin: 3rem 0;
+      border-top: 0.5px solid var(--faint);
+      border-bottom: 0.5px solid var(--faint);
+      padding: 2.5rem 0 1.5rem;
+    }
+    .post-figure svg { width: 100%; height: auto; display: block; }
+    .post-figure figcaption {
+      font-family: 'Lato', sans-serif; font-size: 0.63rem;
+      letter-spacing: 0.1em; color: var(--muted);
+      margin-top: 1.2rem; line-height: 1.65;
+    }
+    .post-figure figcaption strong { color: var(--ink2); font-weight: 400; }
+
+    /* ── POEM STYLES ── */
+    .poem-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3.5rem 0 3rem;
+      color: var(--faint);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+    .poem-divider::before,
+    .poem-divider::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--faint);
+    }
+
+    .poem {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.12rem;
+      line-height: 2;
+      color: var(--ink2);
+      margin: 0 0 3.5rem;
+    }
+
+    .poem .stanza {
+      margin-bottom: 2rem;
+    }
+
+    /* The section break symbol ~&~ */
+    .poem-break {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--faint);
+      letter-spacing: 0.3em;
+      margin: 2.5rem 0;
+      display: block;
+    }
+
+    /* Indented lines */
+    .poem .indent-1 { padding-left: 1.5rem; display: block; }
+    .poem .indent-2 { padding-left: 3rem; display: block; }
+    .poem .indent-3 { padding-left: 4.5rem; display: block; }
+
+    /* Italic word in poem */
+    .poem em { font-style: italic; }
+
+    /* Scientific term inline */
+    .poem .sci {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--neuron);
+      font-style: normal;
+    }
+
+    /* Author note */
+    .author-note {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid var(--faint);
+      font-size: 0.92rem;
+      line-height: 1.85;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .author-note strong {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-style: normal;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block; margin: 3rem 0 0;
+      font-family: 'Lato', sans-serif; font-size: 0.65rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); border-bottom: 0.5px solid var(--faint);
+      padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { color: var(--ink); border-color: var(--ink); }
+
+    footer {
+      padding: 2rem 0; margin-top: 2rem;
+      border-top: 0.5px solid var(--faint);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer span {
+      font-family: 'Lato', sans-serif; font-size: 0.65rem;
+      letter-spacing: 0.12em; color: var(--faint);
+    }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    .fade-up   { animation: fadeUp 0.8s ease both; }
+    .fade-up-2 { animation: fadeUp 0.8s ease both 0.14s; }
+  </style>
+</head>
+<body>
+
+<svg class="bg-neurons" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+  <line x1="180" y1="310" x2="280" y2="260" stroke="#4a5c3a" stroke-width="1.2"/>
+  <line x1="280" y1="260" x2="360" y2="220" stroke="#4a5c3a" stroke-width="0.9"/>
+  <line x1="180" y1="310" x2="120" y2="280" stroke="#4a5c3a" stroke-width="0.9"/>
+  <path d="M180 310 C220 370 260 400 320 430" stroke="#4a5c3a" stroke-width="1.5" fill="none"/>
+  <circle cx="1100" cy="150" r="7" fill="#8c6a3a"/>
+  <line x1="1100" y1="150" x2="1170" y2="120" stroke="#8c6a3a" stroke-width="1"/>
+  <path d="M1100 150 C1070 210 1050 270 1030 340" stroke="#8c6a3a" stroke-width="1.3" fill="none"/>
+</svg>
+
+<div class="site">
+
+  <nav>
+    <a href="../index.html" class="nav-name">Nicole Ellsworth</a>
+    <ul class="nav-links">
+      <li><a href="../writing.html" class="active">Writing</a></li>
+      <li><a href="../art.html">Art</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="post-header fade-up">
+    <div class="post-tag">Poetry</div>
+    <h1>We Don't <em>Eat</em></h1>
+    <div class="post-subtitle">On autophagy, the body's oldest logic, and what it means to survive from the inside out.</div>
+    <div class="post-meta">
+      <span>Nicole Ellsworth</span>
+      <span>2024</span>
+      <span>Poetry</span>
+    </div>
+  </div>
+
+  <div class="post-layout fade-up-2">
+
+    <figure class="post-figure">
+      <svg viewBox="0 0 660 420" xmlns="http://www.w3.org/2000/svg" aria-label="Autophagy: five stages from phagophore to degradation and recycling">
+
+        <!-- ═══════════════════════════════════════════════════════
+             ROW 1: Phagophore → Autophagosome → Lysosome fusion
+             Centers: x=110, x=310, x=530  y=130
+             Layout mirrors reference image top row exactly.
+        ════════════════════════════════════════════════════════ -->
+
+        <!-- STAGE 1 label -->
+        <text font-family="'Lato',sans-serif" font-size="8" letter-spacing="0.13em" fill="#3d3930" text-anchor="middle" x="110" y="18">① PHAGOPHORE</text>
+
+        <!-- STAGE 1: Phagophore — C-shaped crescent, double membrane,
+             open ends, loose cargo dots floating freely inside the cup.
+             Matches reference: large open crescent, visible double wall. -->
+        <g transform="translate(110,130)">
+          <!-- outer membrane of crescent — wide open C shape -->
+          <path fill="none" stroke="#3d3930" stroke-width="1.1"
+            d="M 22,-70 C 50,-68 72,-52 78,-28 C 84,-4 78,22 64,40 C 50,58 30,68 8,70 C -14,72 -36,64 -52,48 C -68,32 -76,8 -74,-18 C -72,-44 -58,-64 -36,-74 C -20,-82 2,-80 22,-70"/>
+          <!-- inner membrane — offset inward ~10px, same C shape -->
+          <path fill="none" stroke="#3d3930" stroke-width="0.6"
+            d="M 16,-56 C 36,-54 54,-42 58,-22 C 62,-2 58,18 46,32 C 34,46 18,54 0,56 C -18,58 -36,50 -46,36 C -56,22 -60,4 -58,-16 C -56,-36 -44,-52 -26,-60 C -14,-66 2,-66 16,-56"/>
+          <!-- free-floating cargo inside cup: small circles + wavy lines -->
+          <circle cx="-10" cy="-10" r="6" fill="none" stroke="#4a5c3a" stroke-width="0.7"/>
+          <circle cx="-10" cy="-10" r="2.5" fill="#4a5c3a" fill-opacity="0.2"/>
+          <circle cx="14"  cy="10"  r="5"   fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="-22" cy="20"  r="4"   fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="4"   cy="-28" r="3.5" fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <circle cx="24"  cy="-14" r="3"   fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <!-- wavy lines (cytoplasmic content) -->
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -30,0 C -26,-4 -22,4 -18,0 C -14,-4 -10,4 -6,0"/>
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -8,36 C -4,32 0,40 4,36 C 8,32 12,40 16,36"/>
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M 24,28 C 28,24 32,32 36,28"/>
+        </g>
+
+        <!-- Arrow 1→2 -->
+        <line x1="196" y1="130" x2="222" y2="130" stroke="#c8c2b8" stroke-width="0.8"/>
+        <polygon points="220,126 228,130 220,134" fill="#c8c2b8"/>
+
+        <!-- STAGE 2 label -->
+        <text font-family="'Lato',sans-serif" font-size="8" letter-spacing="0.13em" fill="#3d3930" text-anchor="middle" x="310" y="18">② AUTOPHAGOSOME</text>
+
+        <!-- STAGE 2: Autophagosome — sealed double-membrane sphere.
+             Outer circle + inner circle (gap between = membrane space).
+             Cargo visible inside inner membrane. -->
+        <g transform="translate(310,130)">
+          <!-- outer membrane -->
+          <circle r="72" fill="none" stroke="#3d3930" stroke-width="1.1"/>
+          <!-- inner membrane — gap ~10px from outer -->
+          <circle r="60" fill="none" stroke="#3d3930" stroke-width="0.7"/>
+          <!-- cargo inside: same dots + wavies as phagophore, now enclosed -->
+          <circle cx="-12" cy="-12" r="7"   fill="none" stroke="#4a5c3a" stroke-width="0.7"/>
+          <circle cx="-12" cy="-12" r="3"   fill="#4a5c3a" fill-opacity="0.18"/>
+          <circle cx="16"  cy="8"   r="6"   fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="-24" cy="18"  r="5"   fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="6"   cy="-30" r="4"   fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <circle cx="28"  cy="-12" r="3.5" fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <circle cx="0"   cy="28"  r="4"   fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -36,2 C -32,-2 -28,6 -24,2 C -20,-2 -16,6 -12,2"/>
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -6,38 C -2,34 2,42 6,38 C 10,34 14,42 18,38"/>
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M 28,22 C 32,18 36,26 40,22"/>
+        </g>
+
+        <!-- Arrow 2→3 (horizontal) -->
+        <line x1="384" y1="130" x2="410" y2="130" stroke="#c8c2b8" stroke-width="0.8"/>
+        <polygon points="408,126 416,130 408,134" fill="#c8c2b8"/>
+
+        <!-- STAGE 3 label — two lines, lysosome drops in from above -->
+        <text font-family="'Lato',sans-serif" font-size="8" letter-spacing="0.13em" fill="#3d3930" text-anchor="middle" x="530" y="18">③ AUTOPHAGOSOME</text>
+        <text font-family="'Lato',sans-serif" font-size="8" letter-spacing="0.13em" fill="#3d3930" text-anchor="middle" x="530" y="28">&amp; LYSOSOME FUSION</text>
+
+        <!-- STAGE 3: Fusion — figure-8 shape.
+             Left lobe = autophagosome (double membrane, cargo).
+             Right lobe = lysosome (single thick membrane, enzyme blobs).
+             Narrow waist connects them.
+             Matches reference exactly. -->
+        <g transform="translate(530,130)">
+          <!-- left lobe outer (autophagosome) -->
+          <path fill="none" stroke="#3d3930" stroke-width="1.1"
+            d="M -10,-58 C -42,-56 -66,-36 -68,-8 C -70,20 -52,46 -24,54 C -10,58 0,54 8,44 C 14,34 14,18 8,6 C 4,-2 4,-10 8,-18 C 14,-30 14,-46 8,-56 C 4,-62 -2,-64 -10,-58"/>
+          <!-- left lobe inner membrane -->
+          <path fill="none" stroke="#3d3930" stroke-width="0.6"
+            d="M -10,-46 C -34,-44 -52,-28 -54,-6 C -56,16 -42,36 -20,42 C -10,46 0,42 6,34 C 10,26 10,14 6,4 C 2,-4 2,-10 6,-18 C 10,-28 10,-40 6,-48 C 2,-54 -4,-52 -10,-46"/>
+          <!-- cargo in left lobe -->
+          <circle cx="-28" cy="-10" r="6"  fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="-28" cy="-10" r="2.5" fill="#4a5c3a" fill-opacity="0.18"/>
+          <circle cx="-38" cy="14"  r="4.5" fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="-18" cy="24"  r="4"   fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -50,-4 C -46,-8 -42,0 -38,-4"/>
+          <!-- right lobe (lysosome) — single thicker wall, enzyme blobs inside -->
+          <path fill="none" stroke="#8c6a3a" stroke-width="1.3"
+            d="M 8,-56 C 14,-62 24,-62 32,-54 C 48,-40 58,-16 56,12 C 54,38 40,58 22,62 C 10,66 0,60 -6,50 C -12,40 -12,26 -6,16 C -2,8 -2,-2 -6,-12 C -12,-26 -12,-44 -6,-54 C -2,-60 4,-62 8,-56"/>
+          <!-- enzyme blobs in lysosome — pac-man shapes from reference -->
+          <path fill="#8c6a3a" fill-opacity="0.25" stroke="#8c6a3a" stroke-width="0.5"
+            d="M 28,-18 C 38,-24 46,-14 42,-4 C 38,6 28,8 22,2 C 16,-4 18,-14 28,-18 Z"/>
+          <path fill="#8c6a3a" fill-opacity="0.25" stroke="#8c6a3a" stroke-width="0.5"
+            d="M 18,16 C 28,10 36,20 32,30 C 28,40 18,42 12,36 C 6,30 8,20 18,16 Z"/>
+          <path fill="#8c6a3a" fill-opacity="0.2" stroke="#8c6a3a" stroke-width="0.5"
+            d="M 36,4 C 42,0 48,8 44,16 C 40,24 32,24 28,18 C 24,12 28,6 36,4 Z"/>
+        </g>
+
+        <!-- ═══════════════════════════════════════════════════════
+             Vertical arrow from row 1 → row 2, right side
+             drops from stage 3 (x=530) down to stage 4 (x=530→200)
+             Matches reference L-shaped connector.
+        ════════════════════════════════════════════════════════ -->
+        <!-- vertical drop from stage 3 -->
+        <line x1="530" y1="205" x2="530" y2="240" stroke="#c8c2b8" stroke-width="0.8"/>
+        <!-- horizontal across to stage 4 center -->
+        <line x1="530" y1="240" x2="200" y2="240" stroke="#c8c2b8" stroke-width="0.8"/>
+        <!-- arrow down to stage 4 -->
+        <line x1="200" y1="240" x2="200" y2="266" stroke="#c8c2b8" stroke-width="0.8"/>
+        <polygon points="196,264 200,272 204,264" fill="#c8c2b8"/>
+
+        <!-- ═══════════════════════════════════════════════════════
+             ROW 2: Autolysosome → Degradation & Recycling
+             Centers: x=200, x=460   y=340
+        ════════════════════════════════════════════════════════ -->
+
+        <!-- STAGE 4 label -->
+        <text font-family="'Lato',sans-serif" font-size="8" letter-spacing="0.13em" fill="#3d3930" text-anchor="middle" x="200" y="284">④ AUTOLYSOSOME</text>
+
+        <!-- STAGE 4: Autolysosome — figure-8 again but now both
+             lobes show mixed content (enzymes + partially degraded cargo).
+             Matches reference bottom-left shape. -->
+        <g transform="translate(200,350)">
+          <!-- left lobe — enzyme-rich (from lysosome) -->
+          <path fill="none" stroke="#8c6a3a" stroke-width="1.2"
+            d="M 6,-52 C 2,-60 -8,-64 -18,-58 C -44,-46 -62,-22 -60,6 C -58,30 -42,52 -20,58 C -8,62 0,58 6,48 C 12,38 12,22 6,10 C 2,2 2,-8 6,-18 C 12,-30 12,-44 6,-52"/>
+          <!-- enzyme blobs in left lobe -->
+          <path fill="#8c6a3a" fill-opacity="0.22" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -26,-14 C -16,-20 -8,-10 -12,0 C -16,10 -26,12 -32,6 C -38,0 -36,-10 -26,-14 Z"/>
+          <path fill="#8c6a3a" fill-opacity="0.22" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -36,16 C -28,10 -20,20 -24,30 C -28,40 -38,40 -44,32 C -50,24 -46,18 -36,16 Z"/>
+          <path fill="#8c6a3a" fill-opacity="0.18" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -14,24 C -6,18 0,28 -4,36 C -8,44 -18,44 -22,36 C -26,28 -22,28 -14,24 Z"/>
+          <!-- right lobe — partially degraded cargo mixing in -->
+          <path fill="none" stroke="#8c6a3a" stroke-width="1.2"
+            d="M 6,-52 C 10,-60 22,-62 32,-56 C 52,-42 64,-16 62,12 C 60,38 44,60 22,64 C 10,68 0,62 -6,50 C -12,38 -12,22 -6,10 C -2,2 -2,-8 -6,-18 C -12,-32 -12,-46 -6,-54 C -2,-60 2,-60 6,-52"/>
+          <!-- partially broken cargo in right lobe -->
+          <circle cx="22"  cy="-18" r="5"   fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="34"  cy="0"   r="4"   fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <circle cx="20"  cy="18"  r="5"   fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <!-- enzyme blobs mixed in right -->
+          <path fill="#8c6a3a" fill-opacity="0.18" stroke="#8c6a3a" stroke-width="0.5"
+            d="M 36,-28 C 44,-34 50,-24 46,-14 C 42,-4 32,-4 28,-12 C 24,-20 28,-26 36,-28 Z"/>
+          <path fill="#8c6a3a" fill-opacity="0.18" stroke="#8c6a3a" stroke-width="0.5"
+            d="M 36,22 C 44,16 50,26 46,36 C 42,44 32,46 28,38 C 24,30 28,26 36,22 Z"/>
+          <!-- wavy degraded content -->
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M 8,36 C 12,32 16,40 20,36 C 24,32 28,40 32,36"/>
+          <path fill="none" stroke="#4a5c3a" stroke-width="0.5"
+            d="M 10,-36 C 14,-40 18,-32 22,-36 C 26,-40 30,-32 34,-36"/>
+        </g>
+
+        <!-- Arrow 4→5 horizontal -->
+        <line x1="270" y1="350" x2="340" y2="350" stroke="#c8c2b8" stroke-width="0.8"/>
+        <polygon points="338,346 346,350 338,354" fill="#c8c2b8"/>
+
+        <!-- STAGE 5 label -->
+        <text font-family="'Lato',sans-serif" font-size="8" letter-spacing="0.13em" fill="#3d3930" text-anchor="middle" x="460" y="284">⑤ DEGRADATION &amp; RECYCLING</text>
+
+        <!-- STAGE 5: Single circle (autolysosome resolved), all cargo
+             broken to small fragments, transporter channel in membrane,
+             recycled molecules (small dots) exiting. Matches reference. -->
+        <g transform="translate(460,350)">
+          <!-- single outer membrane — lysosome won -->
+          <circle r="70" fill="none" stroke="#8c6a3a" stroke-width="1.2"/>
+          <!-- scattered small degraded fragments -->
+          <circle cx="-30" cy="-20" r="3"   fill="#4a5c3a" fill-opacity="0.3" stroke="#4a5c3a" stroke-width="0.4"/>
+          <circle cx="-10" cy="-36" r="2.5" fill="#8c6a3a" fill-opacity="0.3" stroke="#8c6a3a" stroke-width="0.4"/>
+          <circle cx="14"  cy="-26" r="3"   fill="#4a5c3a" fill-opacity="0.28" stroke="#4a5c3a" stroke-width="0.4"/>
+          <circle cx="-38" cy="4"   r="2"   fill="#8c6a3a" fill-opacity="0.25" stroke="#8c6a3a" stroke-width="0.4"/>
+          <circle cx="-18" cy="12"  r="3.5" fill="#4a5c3a" fill-opacity="0.28" stroke="#4a5c3a" stroke-width="0.4"/>
+          <circle cx="8"   cy="6"   r="2.5" fill="#8c6a3a" fill-opacity="0.25" stroke="#8c6a3a" stroke-width="0.4"/>
+          <circle cx="30"  cy="-8"  r="3"   fill="#4a5c3a" fill-opacity="0.25" stroke="#4a5c3a" stroke-width="0.4"/>
+          <circle cx="36"  cy="16"  r="2"   fill="#8c6a3a" fill-opacity="0.2"  stroke="#8c6a3a" stroke-width="0.4"/>
+          <circle cx="-8"  cy="30"  r="3"   fill="#4a5c3a" fill-opacity="0.25" stroke="#4a5c3a" stroke-width="0.4"/>
+          <circle cx="14"  cy="36"  r="2.5" fill="#8c6a3a" fill-opacity="0.22" stroke="#8c6a3a" stroke-width="0.4"/>
+          <circle cx="-28" cy="24"  r="2"   fill="#4a5c3a" fill-opacity="0.2"  stroke="#4a5c3a" stroke-width="0.4"/>
+          <circle cx="42"  cy="-24" r="2"   fill="#8c6a3a" fill-opacity="0.2"  stroke="#8c6a3a" stroke-width="0.4"/>
+          <!-- wavy fragments -->
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -44,14 C -40,10 -36,18 -32,14"/>
+          <path fill="none" stroke="#4a5c3a" stroke-width="0.5"
+            d="M 18,24 C 22,20 26,28 30,24 C 34,20 38,28 42,24"/>
+          <path fill="none" stroke="#8c6a3a" stroke-width="0.5"
+            d="M -20,-46 C -16,-50 -12,-42 -8,-46"/>
+          <!-- transporter channel in membrane — small rect notch -->
+          <rect x="62" y="-10" width="16" height="20" rx="3"
+            fill="#f7f4ef" stroke="#3d3930" stroke-width="0.8"/>
+          <line x1="70" y1="-10" x2="70" y2="10" stroke="#3d3930" stroke-width="0.4"/>
+          <!-- recycled molecules exiting right — small dots with arrow -->
+          <circle cx="94"  cy="-8" r="4" fill="#4a5c3a" fill-opacity="0.5" stroke="#4a5c3a" stroke-width="0.5"/>
+          <circle cx="108" cy="0"  r="3" fill="#8c6a3a" fill-opacity="0.5" stroke="#8c6a3a" stroke-width="0.5"/>
+          <circle cx="100" cy="12" r="3.5" fill="#4a5c3a" fill-opacity="0.45" stroke="#4a5c3a" stroke-width="0.5"/>
+          <line x1="78" y1="0" x2="88" y2="0" stroke="#3d3930" stroke-width="0.7"/>
+          <polygon points="86,-3 92,0 86,3" fill="#3d3930"/>
+        </g>
+
+      </svg>
+      <figcaption><strong>Autophagy</strong> — Under cellular stress, a cup-shaped phagophore membrane (①) elongates around damaged cytoplasmic cargo and seals into a double-membraned autophagosome (②). This vesicle fuses with a lysosome (③), forming an autolysosome (④) in which hydrolytic enzymes degrade the enclosed contents. The resulting molecular components — amino acids, lipids, nucleotides — are exported back into the cytoplasm for reuse (⑤). The cell consumes itself to survive. Illustration by Nicole Ellsworth.</figcaption>
+    </figure>
+
+    <!-- ══ THE POEM ══ -->
+    <div class="poem">
+
+      <div class="stanza">
+        Under stress, the cell goes to war<br>
+        against itself.<br>
+        Biologists call this process<br>
+        <span class="sci">autophagy</span>–<br>
+        the body's own mouth<br>
+        devouring its wrists.<br>
+        But before death,<br>
+        birth:<br>
+        <span class="sci">Autophagosomes</span> erupt<br>
+        from the belly of the cell,<br>
+        little glass coffins<br>
+        shuttling the living<br>
+        to their liquescence;<br>
+        atom by atom,<br>
+        the cell unspools—<br>
+        a rosary of bone-bright remnants<br>
+        rushing back into the dark.<br>
+        This is the way of the cell.<br>
+        This is how we survive.
+      </div>
+
+      <span class="poem-break">~&amp;~</span>
+
+      <div class="stanza">
+        Like the cell, under stress,<br>
+        the girl learns to surrender<br>
+        from the inside out.<br>
+        She searches herself<br>
+        in the mirror's black tide—<br>
+        her body all pink and blue and bloated<br>
+        as a white rabbit<br>
+        drowned.<br>
+        Beneath the skin—<br>
+        fat—<br>
+        the wriggle of maggots,<br>
+        stretching her, betraying her,<br>
+        scarring her.<br>
+        The only way she knows to stop it<br>
+        <span class="indent-1">is to starve it;</span><br>
+        so she skips dinner.<br>
+        Then breakfast.<br>
+        5 days, no food—<br>
+        "Did you eat,"<br>
+        "Yes, spaghetti."<br>
+        "Breakfast?"<br>
+        "I ate at school."<br>
+        But fear doesn't starve,<br>
+        it splinters.<br>
+        Three months–no bleeding.<br>
+        Her hair like sun-sick cornsilk,<br>
+        thin and slackened—<br>
+        no boy would dare touch it.
+      </div>
+
+      <div class="stanza">
+        Stop.<br>
+        You see the weight<br>
+        but not the weight of it—<br>
+        the sickness metastasized<br>
+        to the brain, to the spleen,<br>
+        to the tender epithelium<br>
+        of her lungs.<br>
+        Not all suicides are sinkholes,<br>
+        some are stalemates–a slow<br>
+        and stubborn exhalation of life.<br>
+        Don't you see?<br>
+        This atmosphere is so full<br>
+        of her atoms, her carbon,<br>
+        of us,<br>
+        our bodies–this matter–<br>
+        is shared, never borne.<br>
+        Her surrender is not lost<br>
+        it is not final,<br>
+        it is food<br>
+        for the skies' feasting<br>
+        her decision<br>
+        was to give<br>
+        <span class="indent-1">away</span><br>
+        <span class="indent-2">not up,</span><br>
+        to give always,<br>
+        not once<br>
+        while leaning too far over a bridge,<br>
+        <span class="indent-1">or twice holding a gun</span><br>
+        to the tender flesh<br>
+        beneath the chin,<br>
+        but a choice as strict<br>
+        <span class="indent-1">as a nun's crooked spine,</span><br>
+        as criminal<br>
+        as a candle in love<br>
+        with its flame.<br>
+        This starvation—<br>
+        her salvation,<br>
+        it is the reason she does not<br>
+        find a quicker way to the wick.<br>
+        Don't blame her.&nbsp;&nbsp;save her
+      </div>
+
+    </div>
+
+    <a href="../writing.html" class="back-link">← All writing</a>
+
+  </div>
+
+  <footer>
+    <span>© 2025 Nicole Ellsworth</span>
+    <span>Made with curiosity</span>
+  </footer>
+
+</div>
+</body>
+</html>

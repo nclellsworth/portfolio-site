@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ============================================================
+       EDIT: Change the title to your name or site title
+       ============================================================ -->
+  <title>Nicole Ellsworth</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* --- Hero --- */
+    .hero {
+      padding: 5.5rem 0 4.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 3.8vw, 4rem);
+      font-weight: 300;
+      line-height: 1.12;
+      margin-bottom: 1.5rem;
+    }
+    .hero-text h1 em { font-style: italic; color: var(--neuron); }
+    .hero-text p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--ink2);
+      max-width: 36ch;
+    }
+    .hero-neuron {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      opacity: 0.82;
+    }
+
+    /* --- Writing preview --- */
+    .writing-section { padding: 4rem 0; }
+    .writing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .post-card {
+      padding: 2rem 0;
+      border-bottom: 0.5px solid var(--faint);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .post-card:nth-child(odd)  { padding-right: 3rem; border-right: 0.5px solid var(--faint); }
+    .post-card:nth-child(even) { padding-left:  3rem; }
+    .post-card:hover .post-title { color: var(--neuron); }
+
+    .post-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+    .post-excerpt {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .see-all {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 0.5px solid var(--faint);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .see-all:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* --- Art preview --- */
+    /* --- Art preview --- */
+.art-section {
+  padding: 4rem 0;
+}
+
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--faint);
+}
+
+.art-tile {
+  aspect-ratio: 1 / 1.5;
+  background: var(--paper2);
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.art-tile:hover {
+  opacity: 0.8;
+}
+
+.art-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .art-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .art-tile {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+    /* placeholder label inside empty tiles */
+    .art-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+    .art-placeholder span {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--faint);
+      text-align: center;
+    }
+    .art-placeholder svg { opacity: 0.25; }
+
+    /* --- About strip --- */
+    .about-strip {
+      padding: 4rem 0;
+      border-top: 0.5px solid var(--faint);
+      display: flex;
+      gap: 5rem;
+      align-items: flex-start;
+    }
+    .about-strip p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink2);
+      flex: 1;
+    }
+    .about-strip p strong { font-weight: 500; color: var(--ink); }
+    .about-meta {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      padding-top: 0.2rem;
+    }
+    .meta-item {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .meta-item strong {
+      display: block;
+      color: var(--ink2);
+      font-weight: 400;
+      margin-bottom: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Decorative neuron/dendrite background (purely visual) -->
+<svg class="bg-neurons" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+  <line x1="180" y1="310" x2="280" y2="260" stroke="#4a5c3a" stroke-width="1.2"/>
+  <line x1="280" y1="260" x2="360" y2="220" stroke="#4a5c3a" stroke-width="0.9"/>
+  <line x1="360" y1="220" x2="430" y2="190" stroke="#4a5c3a" stroke-width="0.7"/>
+  <line x1="360" y1="220" x2="400" y2="260" stroke="#4a5c3a" stroke-width="0.6"/>
+  <line x1="280" y1="260" x2="310" y2="310" stroke="#4a5c3a" stroke-width="0.7"/>
+  <line x1="180" y1="310" x2="120" y2="280" stroke="#4a5c3a" stroke-width="0.9"/>
+  <line x1="120" y1="280" x2="70"  y2="250" stroke="#4a5c3a" stroke-width="0.6"/>
+  <line x1="120" y1="280" x2="80"  y2="310" stroke="#4a5c3a" stroke-width="0.5"/>
+  <path d="M180 310 C220 370 260 400 320 430" stroke="#4a5c3a" stroke-width="1.5" fill="none"/>
+  <path d="M320 430 C380 460 450 470 510 490" stroke="#4a5c3a" stroke-width="1.2" fill="none"/>
+  <line x1="510" y1="490" x2="550" y2="470" stroke="#4a5c3a" stroke-width="0.8"/>
+  <line x1="510" y1="490" x2="540" y2="510" stroke="#4a5c3a" stroke-width="0.7"/>
+
+  <circle cx="900" cy="150" r="7" fill="#8c6a3a"/>
+  <line x1="900" y1="150" x2="970" y2="120" stroke="#8c6a3a" stroke-width="1"/>
+  <line x1="970" y1="120" x2="1030" y2="100" stroke="#8c6a3a" stroke-width="0.7"/>
+  <line x1="970" y1="120" x2="1010" y2="150" stroke="#8c6a3a" stroke-width="0.6"/>
+  <line x1="900" y1="150" x2="840" y2="130" stroke="#8c6a3a" stroke-width="0.9"/>
+  <line x1="840" y1="130" x2="790" y2="115" stroke="#8c6a3a" stroke-width="0.6"/>
+  <path d="M900 150 C870 210 850 270 830 340" stroke="#8c6a3a" stroke-width="1.3" fill="none"/>
+  <line x1="830" y1="340" x2="800" y2="360" stroke="#8c6a3a" stroke-width="0.7"/>
+  <line x1="830" y1="340" x2="850" y2="370" stroke="#8c6a3a" stroke-width="0.6"/>
+
+  <circle cx="600" cy="720" r="6" fill="#4a5c3a"/>
+  <line x1="600" y1="720" x2="650" y2="690" stroke="#4a5c3a" stroke-width="0.9"/>
+  <line x1="600" y1="720" x2="550" y2="700" stroke="#4a5c3a" stroke-width="0.8"/>
+  <path d="M600 720 C580 780 570 820 560 870" stroke="#4a5c3a" stroke-width="1.1" fill="none"/>
+</svg>
+
+<div class="site">
+
+  <nav>
+    <!-- EDIT: Replace "Your Name" with your actual name -->
+    <a href="index.html" class="nav-name">Nicole Ellsworth</a>
+    <ul class="nav-links">
+      <li><a href="writing.html">Writing</a></li>
+      <li><a href="art.html">Art</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       HERO SECTION
+       EDIT: Change the tagline and the short description below it
+       ============================================================ -->
+  <section class="hero">
+    <div class="hero-text fade-up">
+      <h1>If the world stops ending, I wouldn't know</h1>
+      <!-- EDIT: This is the short description under the tagline -->
+    </div>
+    <div class="hero-neuron fade-up-2">
+      <!-- Decorative microbial garden illustration — purely visual -->
+      <!-- Organisms: radiolarian, pennate diatom, dinoflagellate, foraminifera, centric diatom, coccolithophore -->
+      <svg width="300" height="320" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Radiolarian (top center) -->
+        <g transform="translate(150,72)">
+          <circle r="22" fill="none" stroke="#8c6a3a" stroke-width="1"/>
+          <circle r="13" fill="none" stroke="#8c6a3a" stroke-width="0.7"/>
+          <circle r="5"  fill="#8c6a3a" opacity="0.25"/>
+          <line x1="0" y1="-22" x2="0" y2="-38"         stroke="#8c6a3a" stroke-width="0.8"/>
+          <line x1="0" y1="22"  x2="0" y2="38"          stroke="#8c6a3a" stroke-width="0.8"/>
+          <line x1="-22" y1="0" x2="-38" y2="0"         stroke="#8c6a3a" stroke-width="0.8"/>
+          <line x1="22" y1="0"  x2="38" y2="0"          stroke="#8c6a3a" stroke-width="0.8"/>
+          <line x1="-15.6" y1="-15.6" x2="-27" y2="-27" stroke="#8c6a3a" stroke-width="0.7"/>
+          <line x1="15.6"  y1="-15.6" x2="27"  y2="-27" stroke="#8c6a3a" stroke-width="0.7"/>
+          <line x1="-15.6" y1="15.6"  x2="-27" y2="27"  stroke="#8c6a3a" stroke-width="0.7"/>
+          <line x1="15.6"  y1="15.6"  x2="27"  y2="27"  stroke="#8c6a3a" stroke-width="0.7"/>
+          <line x1="-8" y1="-21"  x2="-13" y2="-34" stroke="#8c6a3a" stroke-width="0.5"/>
+          <line x1="8"  y1="-21"  x2="13"  y2="-34" stroke="#8c6a3a" stroke-width="0.5"/>
+          <line x1="-21" y1="-8"  x2="-34" y2="-13" stroke="#8c6a3a" stroke-width="0.5"/>
+          <line x1="21"  y1="-8"  x2="34"  y2="-13" stroke="#8c6a3a" stroke-width="0.5"/>
+          <line x1="-21" y1="8"   x2="-34" y2="13"  stroke="#8c6a3a" stroke-width="0.5"/>
+          <line x1="21"  y1="8"   x2="34"  y2="13"  stroke="#8c6a3a" stroke-width="0.5"/>
+          <line x1="-8"  y1="21"  x2="-13" y2="34"  stroke="#8c6a3a" stroke-width="0.5"/>
+          <line x1="8"   y1="21"  x2="13"  y2="34"  stroke="#8c6a3a" stroke-width="0.5"/>
+          <circle cx="10" cy="0"   r="1.5" fill="#8c6a3a" opacity="0.4"/>
+          <circle cx="-10" cy="0"  r="1.5" fill="#8c6a3a" opacity="0.4"/>
+          <circle cx="0" cy="10"   r="1.5" fill="#8c6a3a" opacity="0.4"/>
+          <circle cx="0" cy="-10"  r="1.5" fill="#8c6a3a" opacity="0.4"/>
+          <circle cx="7" cy="7"    r="1.2" fill="#8c6a3a" opacity="0.3"/>
+          <circle cx="-7" cy="7"   r="1.2" fill="#8c6a3a" opacity="0.3"/>
+          <circle cx="7" cy="-7"   r="1.2" fill="#8c6a3a" opacity="0.3"/>
+          <circle cx="-7" cy="-7"  r="1.2" fill="#8c6a3a" opacity="0.3"/>
+        </g>
+        <!-- Pennate diatom (left) -->
+        <g transform="translate(62,168) rotate(-18)">
+          <ellipse rx="18" ry="42" fill="none" stroke="#4a5c3a" stroke-width="1"/>
+          <ellipse rx="12" ry="36" fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <line x1="-18" y1="-28" x2="18" y2="-28" stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="-18" y1="-20" x2="18" y2="-20" stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="-18" y1="-12" x2="18" y2="-12" stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="-18" y1="-4"  x2="18" y2="-4"  stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="-18" y1="4"   x2="18" y2="4"   stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="-18" y1="12"  x2="18" y2="12"  stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="-18" y1="20"  x2="18" y2="20"  stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="-18" y1="28"  x2="18" y2="28"  stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle r="3" fill="#4a5c3a" opacity="0.2"/>
+        </g>
+        <!-- Dinoflagellate (right) -->
+        <g transform="translate(234,158)">
+          <circle r="26" fill="none" stroke="#8c6a3a" stroke-width="0.8"/>
+          <path d="M0,-26 L14,-22 L22,-10 L18,6 L8,18 L-8,18 L-18,6 L-22,-10 L-14,-22 Z" fill="none" stroke="#8c6a3a" stroke-width="0.7"/>
+          <path d="M0,-18 L10,-14 L14,-4 L10,8 L0,12 L-10,8 L-14,-4 L-10,-14 Z" fill="none" stroke="#8c6a3a" stroke-width="0.5"/>
+          <circle r="4" fill="#8c6a3a" opacity="0.2"/>
+          <path d="M0 26 C4 36 2 48 6 58 C10 68 8 80 4 88"        stroke="#8c6a3a" stroke-width="0.8" fill="none"/>
+          <path d="M26 0 C38 4 50 0 60 6 C70 12 80 10 90 8"       stroke="#8c6a3a" stroke-width="0.7" fill="none"/>
+          <path d="M-26,0 C-18,-6 -6,-8 0,-8 C6,-8 18,-6 26,0"   stroke="#8c6a3a" stroke-width="0.6" fill="none"/>
+          <circle cx="0"   cy="-22" r="1.5" fill="#8c6a3a" opacity="0.4"/>
+          <circle cx="12"  cy="-16" r="1.2" fill="#8c6a3a" opacity="0.35"/>
+          <circle cx="-12" cy="-16" r="1.2" fill="#8c6a3a" opacity="0.35"/>
+          <circle cx="18"  cy="4"   r="1.2" fill="#8c6a3a" opacity="0.3"/>
+          <circle cx="-18" cy="4"   r="1.2" fill="#8c6a3a" opacity="0.3"/>
+        </g>
+        <!-- Foraminifera (bottom left) -->
+        <g transform="translate(90,264)">
+          <path d="M0,0 C0,-8 6,-14 14,-12 C22,-10 24,-2 20,6 C16,14 8,16 2,12 C-4,8 -6,2 -2,-4 C2,-10 8,-12 14,-10" fill="none" stroke="#4a5c3a" stroke-width="0.9"/>
+          <path d="M14,-10 C18,-8 20,-2 18,4 C16,10 10,12 6,10" fill="none" stroke="#4a5c3a" stroke-width="0.7"/>
+          <path d="M6,10 C4,12 2,12 0,10" fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="14" cy="-10" r="2.5" fill="none" stroke="#4a5c3a" stroke-width="0.6"/>
+          <circle cx="2"  cy="12"  r="1.8" fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+        </g>
+        <!-- Centric diatom (bottom center) -->
+        <g transform="translate(172,276)">
+          <circle r="18" fill="none" stroke="#4a5c3a" stroke-width="0.9"/>
+          <circle r="13" fill="none" stroke="#4a5c3a" stroke-width="0.5"/>
+          <circle r="5"  fill="none" stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="0" y1="-18" x2="0" y2="-5"          stroke="#4a5c3a" stroke-width="0.5"/>
+          <line x1="0" y1="18"  x2="0" y2="5"           stroke="#4a5c3a" stroke-width="0.5"/>
+          <line x1="-18" y1="0" x2="-5" y2="0"          stroke="#4a5c3a" stroke-width="0.5"/>
+          <line x1="18" y1="0"  x2="5" y2="0"           stroke="#4a5c3a" stroke-width="0.5"/>
+          <line x1="-12.7" y1="-12.7" x2="-3.5" y2="-3.5" stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="12.7"  y1="-12.7" x2="3.5"  y2="-3.5" stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="-12.7" y1="12.7"  x2="-3.5" y2="3.5"  stroke="#4a5c3a" stroke-width="0.4"/>
+          <line x1="12.7"  y1="12.7"  x2="3.5"  y2="3.5"  stroke="#4a5c3a" stroke-width="0.4"/>
+          <circle cx="9"  cy="-9" r="1" fill="#4a5c3a" opacity="0.4"/>
+          <circle cx="-9" cy="-9" r="1" fill="#4a5c3a" opacity="0.4"/>
+          <circle cx="9"  cy="9"  r="1" fill="#4a5c3a" opacity="0.4"/>
+          <circle cx="-9" cy="9"  r="1" fill="#4a5c3a" opacity="0.4"/>
+        </g>
+        <!-- Coccolithophore (upper left) -->
+        <g transform="translate(38,92)" opacity="0.7">
+          <circle r="10" fill="none" stroke="#8c6a3a" stroke-width="0.7"/>
+          <ellipse cx="0" cy="-12" rx="3" ry="5" fill="none" stroke="#8c6a3a" stroke-width="0.5"/>
+          <ellipse cx="0" cy="-12" rx="3" ry="5" fill="none" stroke="#8c6a3a" stroke-width="0.5" transform="rotate(45 0 0)"/>
+          <ellipse cx="0" cy="-12" rx="3" ry="5" fill="none" stroke="#8c6a3a" stroke-width="0.5" transform="rotate(90 0 0)"/>
+          <ellipse cx="0" cy="-12" rx="3" ry="5" fill="none" stroke="#8c6a3a" stroke-width="0.5" transform="rotate(135 0 0)"/>
+          <ellipse cx="0" cy="-12" rx="3" ry="5" fill="none" stroke="#8c6a3a" stroke-width="0.5" transform="rotate(180 0 0)"/>
+          <ellipse cx="0" cy="-12" rx="3" ry="5" fill="none" stroke="#8c6a3a" stroke-width="0.5" transform="rotate(225 0 0)"/>
+          <ellipse cx="0" cy="-12" rx="3" ry="5" fill="none" stroke="#8c6a3a" stroke-width="0.5" transform="rotate(270 0 0)"/>
+          <ellipse cx="0" cy="-12" rx="3" ry="5" fill="none" stroke="#8c6a3a" stroke-width="0.5" transform="rotate(315 0 0)"/>
+          <circle r="3" fill="#8c6a3a" opacity="0.2"/>
+        </g>
+        <!-- Connecting filaments -->
+        <line x1="150" y1="112" x2="150" y2="140" stroke="#8c6a3a" stroke-width="0.4" stroke-dasharray="2,3" opacity="0.5"/>
+        <line x1="112" y1="145" x2="85"  y2="130" stroke="#4a5c3a" stroke-width="0.4" stroke-dasharray="2,3" opacity="0.4"/>
+        <line x1="188" y1="145" x2="210" y2="135" stroke="#8c6a3a" stroke-width="0.4" stroke-dasharray="2,3" opacity="0.4"/>
+        <line x1="80"  y1="210" x2="92"  y2="248" stroke="#4a5c3a" stroke-width="0.4" stroke-dasharray="2,3" opacity="0.4"/>
+        <line x1="155" y1="200" x2="160" y2="258" stroke="#4a5c3a" stroke-width="0.4" stroke-dasharray="2,3" opacity="0.4"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WRITING PREVIEW — shows 4 most recent posts on homepage
+       HOW TO ADD A NEW POST:
+         1. Duplicate one of the <div class="post-card"> blocks below
+         2. Update the post-tag, post-title, post-excerpt, and href
+         3. Move it to the top of the grid (it will show first)
+         4. Remove the last card so only 4 show here
+         5. Also add the post to writing.html
+       ============================================================ -->
+  <section class="writing-section fade-up-3">
+    <div class="section-label">Recent writing</div>
+    <div class="writing-grid">
+
+      <!-- POST CARD — duplicate this block for each new post -->
+      <a href="posts/beautiful place.html" class="post-card">
+        <div class="post-tag">Poetry</div>  <!-- EDIT: Science / Essay / Fiction / Poetry / etc. -->
+        <div class="post-title">At Night this Might be a Beautiful place</div>
+        <div class="post-excerpt">At night this might be a beautiful place,</div>
+      </a>
+
+      <a href="posts/stopping-by-the-woods.html" class="post-card">
+        <div class="post-tag">Essay</div>
+        <div class="post-title">Stopping by the woods</div>
+        <div class="post-excerpt">After my grandmother died, my mother built a house on top of my grandmother's home.</div>
+      </a>
+
+      <a href="posts/rumi.html" class="post-card">
+        <div class="post-tag">Poetry</div>
+        <div class="post-title">What I Learned from Rumi</div>
+        <div class="post-excerpt">Don’t forget this language of love, try to remember its pulse.</div>
+      </a>
+
+      <a href="posts/selfPortrait.html" class="post-card">
+        <div class="post-tag">Poetry</div>
+        <div class="post-title">Self Portrait</div>
+        <div class="post-excerpt">Call me a scientist, a collection of experiments zand crooked questions</div>
+      </a>
+
+    </div>
+    <a href="writing.html" class="see-all">All writing →</a>
+  </section>
+
+  <!-- ============================================================
+       ART PREVIEW — shows 3 thumbnails linking to art.html
+       HOW TO ADD YOUR ART:
+         Replace the <div class="art-placeholder"> blocks with:
+         <img src="../images/your-image.jpg" alt="description of artwork">
+         Put your image files in an /images/ folder next to index.html
+       ============================================================ -->
+  <section class="art-section fade-up-4">
+    <div class="section-label">Art</div>
+    <div class="art-grid">
+
+      <!-- Large tile (left, 2/3 width) -->
+      <a href="art.html" class="art-tile">
+        <img src="artImages/Flash Back.JPG" alt="Flash Back artwork">
+      </a>
+
+      <!-- Small tile (top right) -->
+      <a href="art.html" class="art-tile">
+        <img src="artImages/penguins.jpg" alt="penguins">
+      </a>
+
+      <!-- Small tile (bottom right) -->
+       <a href="art.html" class="art-tile">
+        <img src="artImages/wildfire.jpg" alt="wildfire">
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT STRIP
+       EDIT: Replace the paragraph text with your own bio
+       EDIT: Update the meta items (interests, medium, etc.)
+       ============================================================ -->
+
+  <footer>
+    <!-- EDIT: Update your name and year -->
+    <span>© 2026 Nicole Ellsworth <span>
+  </footer>
+
+</div>
+</body>
+</html>

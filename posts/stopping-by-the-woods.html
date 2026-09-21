@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Stopping by the Woods — Nicole Ellsworth</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :root {
+      --ink:    #1a1814;
+      --ink2:   #3d3930;
+      --muted:  #7a7268;
+      --faint:  #c8c2b8;
+      --paper:  #f7f4ef;
+      --paper2: #eee9e0;
+      --moss:   #4a5c3a;
+      --neuron: #8c6a3a;
+      --accent: #b8956a;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .site {
+      position: relative;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 3.5rem;
+    }
+
+    /* Navigation */
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.5rem 0 2rem;
+      border-bottom: 0.5px solid var(--faint);
+    }
+
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      transition: color 0.2s;
+    }
+
+    .nav-name:hover {
+      color: var(--neuron);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ink);
+    }
+
+    /* Post header */
+
+    .post-header {
+      padding: 5rem 0 0;
+      max-width: 660px;
+    }
+
+    .post-tag {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: inline-block;
+    }
+
+    .post-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+
+    .post-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .post-meta {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--faint);
+      display: flex;
+      gap: 1.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 0.5px solid var(--faint);
+    }
+
+    /* Post body */
+
+    .post-header {
+  padding: 5rem 0 0;
+  max-width: 760px;
+  } 
+
+.post-layout {
+  padding: 3.5rem 0 5rem;
+  max-width: 760px;
+} 
+
+    .post-body p {
+      font-size: 1.08rem;
+      line-height: 1.98;
+      color: var(--ink2);
+      margin-bottom: 1.7rem;
+    }
+
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.8rem;
+      font-weight: 300;
+      float: left;
+      line-height: 0.78;
+      margin: 0.06em 0.09em 0 0;
+      color: var(--neuron);
+    }
+
+    .post-body em {
+      font-style: italic;
+    }
+
+    /* Bessie passages */
+
+    .bessie {
+      margin: 2.8rem 0;
+      padding: 0 0 0 1.6rem;
+      border-left: 1px solid var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      font-style: italic;
+      color: var(--ink2);
+      line-height: 1.85;
+    }
+
+    /* Back link */
+
+    .back-link {
+      display: inline-block;
+      margin: 3rem 0 0;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 0.5px solid var(--faint);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    footer {
+      padding: 2rem 0;
+      margin-top: 2rem;
+      border-top: 0.5px solid var(--faint);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--faint);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .fade-up-2 {
+      animation: fadeUp 0.8s ease both 0.14s;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="site">
+
+  <nav>
+    <a href="../index.html" class="nav-name">Nicole Ellsworth</a>
+
+    <ul class="nav-links">
+      <li><a href="../writing.html" class="active">Writing</a></li>
+      <li><a href="../art.html">Art</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </nav>
+
+
+  <div class="post-header fade-up">
+
+    <div class="post-tag">Essay</div>
+
+    <h1>
+      Stopping by<br>the <em>Woods</em>
+    </h1>
+
+
+    <div class="post-meta">
+      <span>Nicole Ellsworth</span>
+      <span>2024</span>
+      <span>Lyric Essay</span>
+    </div>
+
+  </div>
+
+
+  <div class="post-layout fade-up-2">
+
+    <div class="post-body">
+
+      <p>
+        After my grandmother died, my mother built a house on top of my grandmother's home. Same land, new bones. Two years later, we moved in. Just four of us rattling around a house large enough to hold a small zoo. I was 17 at the time and, more ghost than girl, my sister once went three weeks without seeing me even though she slept down the hall. Though she was younger than me, she was the pretty one, and she escaped us into the muscled arms of beautiful boys who still believed in immortality. Such beautiful, lucky creatures; they made me feel so old. So haunted. My grandmother would know how to stitch this story together. Her quilts were like that—tidied corners, forgivingly threaded. I try to write like that now, in the room she never saw, but I get distracted. These words, like her rose garden withered into extinction, dissipate into dust.
+      </p>
+
+      <p>
+        I thought <em>if I followed the language, I would find a body, something to prove she was there.</em> That was the first line of a poem I never finished. A line that led nowhere. Or everywhere. I'm still chasing it, hoping to trip on some fossil of her in the dirt. I keep imagining her, my grandmother: some slender thread of her straw-blond hair crushed into the page like dead corn silk, a knuckled bone knocking at the envoi, a ghost with better grammar. This mudbirth of memory, a slurry of forgotten names and crooked timelines: it will ravish the truth if I don't.
+      </p>
+
+      <p>
+        In my sophomore year of college, I let a tattoo artist needle a family story into my skin, only for my mother to tell me a year later that I got the story wrong. Wrong name. Wrong century. I was bone-struck horrified. But more insidious was the shame, which slipped in quietly as a needleache, soft-footed and permanent, like the ink itself. Now I am just a free-body in this float of history. But I am also the epilogue to my grandmother's history, just as she is to the women before her. So please, let's try to write a sentence.
+      </p>
+
+      <p>
+        My grandmother was not a cow woman. Not really. It was her aunt Bessie who loved them, but in memory, they've folded into one body. Like the fern-eating Brontosaurus, Bessie's dairy cows were tantalizingly mundane. Their lives were good and they knew it. By day, they snacked on tender woodland grass. By night, they slept flank to flank in the barn's warm hush. Routine was their religion; the tender, two-footed creatures who dreamt of milk and rain, their gods.
+      </p>
+
+      <p>
+        It feels like a crime, telling Bessie's story. 160 years divide that story from my birth, and yet, no one has taken the time to write it down.
+      </p>
+
+      <p>
+        Let's back up to a story you've heard before. <em>So, what's your story,</em> the handsome stranger asks the beautiful woman on the roof. He catches her lilting gaze and doesn't let go. Her dress is the color of candied cherries, the kind of dress that's meant to trap a man like him in its sweetness. An interesting woman answers the man with succulent charisma and an aroma of mystery. In the end, they kiss, and maybe, one day, they will grow old together. 
+      </p>
+
+      <p>
+      <em>I'm no good at this story. I don't know,</em> the spiritless character shrugs. The man smiles politely—he is a gentleman after all—and walks away. The English teacher groans. And just like that, the plot deflates. The reader closes the book.
+      </p>
+
+      <p>
+        Three years of speech therapy and they still don't understand me. Learning to say <em>world</em> instead of <em>word</em> never fooled the boy I liked into thinking I was girl enough and it certainly didn't fool the girl I liked into thinking I was human enough. All it really taught me was how to flinch—a full body recoil—at the word <em>girl</em>, like it was a trick someone kept trying to play on me. Sit like a girl. Smile like a girl. Die like one, too, I suppose. Ankles crossed, hands folded over the womanly parts; is that how my grandmother did it? What does it mean, anyway, for a woman to die, after so long being a vessel for birth? Nevermind. Whenever the question of why sends me to the bottom of the ice cream quart, I remember this potential: that if not for me, I can give my body to them. The way my grandmother did. The way someday, I will too.
+      </p>
+
+      <div class="bessie">
+        Bessie, the farmers' daughter, was a girl of wild appetites. She was ten when she followed the flowers into the woods. It was her new obsession—the gathering. Blossoms for her mother. Or maybe just to fill the basket, to feel full. She stepped past the fence line and through the skirt of the woods where the wildflowers quivered in shivering, dappled showers.
+      </div>
+
+      <p>
+        That's how the story goes. I always liked that part, where the dreamer slips into the dream: a pebble tossed back, a fish returned to the sea. I always wanted to hold her hand and follow.
+      </p>
+
+      <p>
+        When I was small, my grandmother took me to Prince Edward Island, to Bessie's woods. My family settled there centuries ago when some nth great grandfather sided with the wrong flag during the American Revolution. It was a graveyard kind of trip. The kind with more tombstones than names. There were no souvenir shops; all I took home was a ziploc bag of red sand and some bullseye shaped mosquito bites. I wonder what my grandmother took home, how many ghosts?
+      </p>
+
+      <p>
+        Last week, my mother texted me a photo from that trip. She didn't know I was writing this story. In the image: my grandmother, me, and my sister lined up in descending height. You can't see our faces, only the bobbing backs of our blonde heads as though some beast—or some beauty—had halted us dead in our path; indeed we were suspended, in time and in body, seized by the sugar-blue skies streaked white with nimbus, and below, a farm flanked by a dark smudge of woods. I spent hours at the edge of those woods but I never went in. Unlike Bessie, my curiosity could not surmount my fear.
+      </p>
+
+      <div class="bessie">
+        Bessie's basket filled fast. The flowers led her deeper, petal by petal, into the woods. She didn't notice when the sun guttered low. Didn't count her steps. Her faith was floral.
+      </div>
+
+      <p>
+        My room was built just 10 feet above the kitchen where my grandmother taught me the secret to a good blueberry pie is love and a heaping mound of butter. My mother let me choose the colors. Sage green. Powder blue. Now, we pretend that butter on the end of a plastic knife is love enough. That silence is a blessing, which it is, until it grows an appetite. What would she think, my grandmother, of what beautiful empty we've spooned out of her home?
+      </p>
+
+      <p>
+        Surely my grandmother is soil now—scattered and particulate within the oaken casket, her form decomposed into some girl-shaped shell. Grief, like a snake, splits its skin again and again, each time leaving me hungrier, more feral, aching to crawl out of this puttied husk and bury myself beside her. But instead, I write. I try to quilt sentences the way she stitched fabric—corner by corner, story by story. Praying one day, this mudbirth will turn into a form.
+      </p>
+
+      <div class="bessie">
+        The trees begin to gather like conspirators and light gutters into loamy shade. Meadow gives way to an avalanche of timbered shadow, the coven of trees gaping like a great maw—whale-mouthed and fungal-green—engulfing Bessie's thin, milky frame into a wide-eyed slit through the darkness.
+      </div>
+
+      <p>
+        The only person who understood me has been dead for years now, dead before she could watch me bloom. <em>Bugga, bugga,</em> my grandmother called me. Bugga, like firefly. Bugga bugga, like her firefly. And that's who I was in her home. Just her bugga, bugga.
+      </p>
+
+      <div class="bessie">
+        The woods gather again. In story, in memory. In my mind. Bessie, or me, or maybe my grandmother—doesn't notice how far she's wandered, her path is the flower's path—random and agitated at best, at worst, a jest toward more dangerous shallows. Oblivious, her basket brims with blossom. Eyes glued to the ground before her, the girl roots deeper into the darkness.
+      </div>
+
+      <p>
+        It was summer, three hours after my grandmother died, and I found myself in middle-school gym class. My mother sent me and my sister home from the hospital before the death part, even though we had been watching the dying part for weeks. I remember running fast, that day she died. A girl in remission from rhabdomyosarcoma high-fived me after a few laps. It would be years before I cried, before I remembered I was girl enough, human enough, to withstand the thought of not being my grandmother's bugga bugga. And worse, the thought that I had to become something more. Pre-med. Pre-PhD. Pre-vet. Finally, a doctor in the family, my parents tell their friends. This society has built an entire culture on preparation, but who prepares us for the day we're expected to begin?
+      </p>
+
+      <p>
+        Remember those candy necklaces we wore as kids, the color of a sunburnt-rainbow? Now I hang words from my collar bones, as though from them may sprout some ancestral tongue to rescue this staggering syntax. But I am not unique. In some Fijian tribes, people wear necklaces strung with teeth. Whale. Dog. Human. I think about that when I write. That words, too, can be bones. Trophies. Warnings. I imagine my ancestors, like a rosary of bones, sitting from my shoulders, watching me write. And I imagine my Aunt Bessie calling my name all the way from the island farm, running after me with a field's worth of flowers. These women I've never met, I cannot save them. But maybe their stories can root me to the loam, keep me from drifting away like that red balloon I lost on my third birthday.
+      </p>
+
+      <div class="bessie">
+        The girl is crying. A quiet, despairing sound. The woods have choked any trace light, only the splash of pink and white-cheeked blooms cut the velveted shade. Her basket overflows with flowers, but they no longer thrill her. She didn't know how to go back. Then—a bell. Faint at first, then closer. White in the green. Cowhide and brass, familiar and slow.
+      </div>
+
+      <p>
+        I try to write about Bessie, but it keeps turning into something else. Into my grandmother. Into me. Into the feeling of being twenty-two and unmoored, of wandering too far and not knowing how to turn back. Of craving the forest but fearing its shadow. Of wanting to be found but not knowing by what or by whom.
+      </p>
+
+      <div class="bessie">
+        The cows she'd fed that morning had wandered into the woods. They move as one body with a discrete, unfaltering direction, slow and deliberate, as though pulled by some invisible thread stretching all the way to the barn. She reaches for the last tail with her stubby, pink fingers. Forehead pressed against its warm side, she lets them carry her home.
+      </div>
+
+      <p>
+        My grandmother mourned being lost by us more than losing us. It was somehow crueler, to be lost, than to lose. Again and again, I'm losing these words. These memories. Her. I've shed myself so many times, I can't count how many nights I grieved the shape of my old skin.
+      </p>
+
+      <p>
+        I think I'll always be writing this story. Starting over. Following a bell I can't quite hear. But when it tolls through the dark like some small mercy, faint and familiar, I hope I'll know it's mine. I hope I'll reach out, dumbly and miraculously, into the story.
+      </p>
+
+      <p style="
+        padding-left: 2rem;
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        color: var(--muted);
+        line-height: 2.2;
+      ">
+        So please,<br>
+        let's try to write a sentence.
+      </p>
+
+      <a href="../writing.html" class="back-link">
+        ← All writing
+      </a>
+
+    </div>
+  </div>
+
+
+  <footer>
+    <span>© 2026 Nicole Ellsworth</span>
+    <span>Made with curiosity</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
