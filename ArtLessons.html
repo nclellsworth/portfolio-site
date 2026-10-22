@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personalized art lessons for children and adults in San Diego with Nicole Ellsworth.">
+  <title>Art Lessons | Nicole Ellsworth</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* Floating lesson navigation — does not move the page content */
+    .lesson-jump-nav {
+      position: fixed;
+      top: 50%;
+      left: max(12px, calc((100vw - 1100px) / 2 - 170px));
+      transform: translateY(-50%);
+      z-index: 1000;
+      width: 155px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      padding: 1rem .6rem;
+      box-sizing: border-box;
+      background: white;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: none;
+      border-radius: 3px;
+      box-shadow: none;
+    }
+    .lesson-jump-title {
+      margin: .1rem .5rem 1rem;
+      font: 300 .62rem 'Lato', sans-serif;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    /* Side navigation background */
+.lesson-jump-links {
+  background: white;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: none;
+  box-shadow: none;
+}
+    .lesson-jump-links li { width: 100%; }
+    .lesson-jump-links a {
+      display: block;
+      padding: .63rem .5rem;
+      font: 400 .72rem 'Lato', sans-serif;
+      line-height: 1.35;
+      letter-spacing: .02em;
+      text-decoration: none;
+      color: var(--ink2);
+      border-radius: 2px;
+      transition: background .18s ease, color .18s ease;
+    }
+    .lesson-jump-links a:hover,
+    .lesson-jump-links a:focus-visible {
+      color: var(--ink);
+      background: rgba(74, 92, 58, .20);
+    }
+    /* On smaller screens, use a compact bottom navigation instead. */
+    @media (max-width: 1450px) {
+      .lesson-jump-nav {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        transform: none;
+        width: 100%;
+        max-height: none;
+        overflow: visible;
+        padding: .35rem .8rem;
+        background: rgba(245, 242, 233, .92);
+      }
+      .lesson-jump-title { display: none; }
+      .lesson-jump-links {
+        flex-direction: row;
+        gap: .3rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: thin;
+      }
+      .lesson-jump-links li { width: auto; flex: 0 0 auto; }
+      .lesson-jump-links a { white-space: nowrap; }
+      body .site { padding-bottom: 4.5rem; }
+    }
+    html { scroll-behavior: smooth; }
+    .lessons-hero, .lessons-section { scroll-margin-top: 1.5rem; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    /* Page styles — designed to work with your existing style.css */
+    .eyebrow {
+      font: 300 .68rem 'Lato', sans-serif;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .lessons-heading, .lessons-hero h1, .lesson-card h3, .contact-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      color: var(--ink);
+    }
+    .lessons-heading em, .lessons-hero h1 em { color: var(--neuron); font-weight: 300; }
+    .lessons-heading { font-size: clamp(2.1rem, 3.7vw, 3.3rem); line-height: 1.15; margin: 1rem 0 1.5rem; }
+    .lessons-section { padding: 3.4rem 0; }
+    .lessons-section p, .hero-copy p, .contact-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--ink2);
+    }
+    .lessons-section p + p, .hero-copy p + p { margin-top: 1.6rem; }
+    .lessons-intro { max-width: 900px; }
+
+    /* HERO: two columns for heading + painting, then full-width intro */
+    .lessons-hero {
+      padding: 5rem 0 3rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+      column-gap: 4rem;
+      row-gap: 3rem;
+      align-items: center;
+    }
+    .lessons-hero h1 {
+      font-size: clamp(3rem, 5vw, 4.8rem);
+      line-height: 1.08;
+      margin: 1.4rem 0 0;
+    }
+    .hero-artwork { margin: 0; min-width: 0; }
+    .hero-artwork img { width: 100%; height: auto; max-height: 490px; object-fit: contain; display: block; }
+    .hero-copy { grid-column: 1 / -1; max-width: 960px; }
+    .hero-copy p { margin: 0; }
+
+    /* PHILOSOPHY: text LEFT, dragons RIGHT. Separate from hero grid. */
+    .approach-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 3.5rem;
+      align-items: center;
+      margin-top: 1.3rem;
+    }
+    .approach-text { min-width: 0; }
+    .approach-text .lessons-heading { margin-top: 0; }
+    .approach-image { margin: 0; min-width: 0; }
+    .approach-image img { display: block; width: 100%; height: auto; object-fit: contain; }
+
+    /* CHILDREN + ADULTS */
+    .audience-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.5rem; margin-top: 2rem; }
+    .lesson-card .small-label { font: 300 .65rem 'Lato', sans-serif; letter-spacing: .17em; text-transform: uppercase; color: var(--muted); }
+    .lesson-card h3 { font-size: 2rem; line-height: 1.2; margin: .85rem 0 1rem; }
+    .lesson-card p { font-size: 1rem; }
+    .mediums { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 2rem; }
+    .mediums span { font: 300 .74rem 'Lato', sans-serif; color: var(--ink2); padding: .7rem .95rem; border: .5px solid var(--faint); }
+
+    /* PORTFOLIO: independent slideshows; full artwork always visible */
+    
+/* --- Portfolio Gallery --- */
+.samples-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.2rem 1.4rem;
+  margin-top: 2.1rem;
+}
+
+.sample-card {
+  margin: 0;
+  min-width: 0;
+}
+
+/* Image container */
+.sample-visual {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  min-width: 0;
+  background: var(--paper2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Preserve complete artwork without cropping */
+.sample-visual > img {
+  position: static !important;
+  display: block;
+  flex: 0 1 auto;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  min-width: 0;
+  object-fit: contain !important;
+  object-position: center;
+}
+
+/* Navigation arrows */
+.sample-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--ink);
+  font-size: 1.32rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sample-arrow:hover,
+.sample-arrow:focus-visible {
+  background: #fff;
+  outline-offset: 2px;
+}
+
+.sample-arrow.prev { left: 5px; }
+.sample-arrow.next { right: 5px; }
+
+/* Caption inside bottom-left of image */
+.image-caption {
+  position: absolute;
+  left: 9px;
+  bottom: 9px;
+  z-index: 2;
+  max-width: calc(100% - 18px);
+  padding: 0.4rem 0.65rem;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--ink2);
+  font: 400 0.7rem 'Lato', sans-serif;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* Category labels beneath images */
+.sample-card figcaption {
+  position: relative;
+  margin-top: .8rem;
+font: 400 1.3rem 'Cormorant Garamond', serif;
+  color: var(--ink2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 1.5rem;
+}
+
+.slide-count {
+  position: absolute;
+  right: 0;
+  font: 300 .7rem 'Lato', sans-serif;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Accessibility and mobile */
+@media (prefers-reduced-motion: reduce) {
+  .sample-arrow { transition: none; }
+}
+
+@media (max-width: 480px) {
+  .samples-grid { grid-template-columns: 1fr; }
+}
+
+
+
+    /* PRICING, REVIEWS AND CONTACT */
+    .pricing-layout { display: grid; grid-template-columns: 210px minmax(0, 1fr); align-items: center; gap: 3rem; margin-top: 1.5rem; }
+    .price { font-family: 'Cormorant Garamond', serif; font-size: 3.4rem; color: var(--neuron); white-space: nowrap; }
+    .price small { font: 300 .75rem 'Lato', sans-serif; color: var(--muted); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; margin-top: 1.5rem; }
+    .review { margin: 0; }
+    .review blockquote { margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; line-height: 1.45; color: var(--ink2); }
+    .review figcaption { margin-top: 1rem; font: 300 .7rem 'Lato', sans-serif; color: var(--muted); }
+    .review-note { font-size: .8rem !important; color: var(--muted) !important; font-style: italic; margin-top: 1rem; }
+    .contact-section { padding: 4rem 0 6rem; }
+    .contact-heading { font-size: clamp(2.2rem, 3.5vw, 3.2rem); line-height: 1.15; margin: 1rem 0; }
+    .contact-section p { max-width: 760px; }
+    .contact-link { display: inline-block; margin-top: 1.7rem; padding-bottom: .4rem; border-bottom: 1px solid var(--neuron); color: var(--neuron); font: 400 .72rem 'Lato', sans-serif; letter-spacing: .15em; text-transform: uppercase; text-decoration: none; }
+    .contact-link:hover { opacity: .65; }
+    .contact-fineprint { color: var(--muted) !important; font-size: .78rem !important; margin-top: 1rem; }
+
+    @media (max-width: 700px) {
+      .lessons-hero, .approach-grid, .audience-grid, .pricing-layout, .reviews-grid { grid-template-columns: 1fr; }
+      .lessons-hero { padding: 3rem 0 2rem; gap: 2rem; }
+      .hero-artwork { max-width: 470px; }
+      .hero-copy { grid-column: 1; }
+      .approach-grid, .audience-grid { gap: 1.8rem; }
+      .lessons-section { padding: 2.8rem 0; }
+      .samples-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 1rem; }
+      .pricing-layout, .reviews-grid { gap: 1.2rem; }
+      .ratings-table td { font-size: .85rem; padding: 1rem .3rem; }
+      .ratings-table th { padding: .7rem .3rem; }
+      .stars { font-size: .95rem; letter-spacing: 0; }
+    }
+
+    /* LESSON LOCATIONS AND EVENTS */
+    .lesson-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.3rem;
+      margin-top: 2rem;
+    }
+    .lesson-option { min-width: 0; }
+    .lesson-option h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.7rem;
+      line-height: 1.25;
+      margin: 0 0 .85rem;
+      color: var(--ink);
+    }
+    .lesson-option p { font-size: .98rem; margin: 0; }
+    .lesson-option .small-label {
+      display: block;
+      margin-bottom: .85rem;
+      font: 300 .66rem 'Lato', sans-serif;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* WALLIE — an informal introduction, not another portfolio tile */
+    .wallie-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(220px, .8fr);
+      gap: 3.5rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .wallie-copy { max-width: 640px; }
+    .wallie-photo { margin: 0; }
+    .wallie-photo img {
+      display: block;
+      width: 100%;
+      max-height: 360px;
+      object-fit: contain;
+      background: var(--paper2);
+    }
+    .wallie-photo figcaption {
+      margin-top: .65rem;
+      font: 300 .72rem 'Lato', sans-serif;
+      color: var(--muted);
+    }
+    .wallie-placeholder {
+      display: grid;
+      place-items: center;
+      min-height: 260px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      background: var(--paper2);
+      font: 300 .77rem 'Lato', sans-serif;
+      letter-spacing: .06em;
+    }
+    @media (max-width: 700px) {
+      .lesson-options, .wallie-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .wallie-photo { max-width: 440px; }
+    }
+
+    
+/* --- Lesson pricing --- */
+.pricing-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.pricing-option .small-label {
+  font: 300 .65rem 'Lato', sans-serif;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.pricing-option .price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  color: var(--neuron);
+  margin-bottom: 1rem;
+}
+
+.pricing-option .price small {
+  font: 300 .7rem 'Lato', sans-serif;
+  color: var(--muted);
+}
+
+.pricing-option p {
+  font-size: .95rem;
+  line-height: 1.8;
+  color: var(--ink2);
+}
+
+.pricing-note {
+  max-width: 800px;
+  margin-top: 1.8rem;
+  font-size: .9rem !important;
+  line-height: 1.8;
+  color: var(--muted) !important;
+}
+
+@media (max-width: 700px) {
+  .pricing-options {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+
+/* --- Getting started section --- */
+.getting-started-intro {
+  max-width: 780px;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--ink2);
+  margin: 1.5rem 0 3rem;
+}
+
+.getting-started-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.5rem;
+  max-width: 950px;
+}
+
+.getting-started-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.4rem;
+}
+
+.step-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--neuron);
+}
+
+.step-content h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 .8rem;
+}
+
+.step-content p {
+  font-size: .95rem;
+  line-height: 1.85;
+  color: var(--ink2);
+  margin-bottom: 1.2rem;
+}
+
+.getting-started-link {
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-size: .76rem;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--neuron);
+  text-decoration: none;
+  border-bottom: 1px solid var(--neuron);
+  padding-bottom: .3rem;
+  transition: opacity .2s;
+}
+
+.getting-started-link:hover {
+  opacity: .65;
+}
+
+.getting-started-note {
+  max-width: 780px;
+  font-size: .9rem;
+  line-height: 1.85;
+  color: var(--muted);
+  margin-top: 3rem;
+  font-style: italic;
+}
+
+@media (max-width: 700px) {
+  .getting-started-steps {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+
+  </style>
+<link rel="stylesheet" href="assets/navigation.css">
+</head>
+<body>
+  <!-- Decorative background motif from homepage -->
+  <svg class="bg-neurons" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="180" cy="310" r="9" fill="#4a5c3a"/>
+    <line x1="180" y1="310" x2="280" y2="260" stroke="#4a5c3a" stroke-width="1.2"/>
+    <line x1="280" y1="260" x2="360" y2="220" stroke="#4a5c3a" stroke-width=".9"/>
+    <line x1="360" y1="220" x2="430" y2="190" stroke="#4a5c3a" stroke-width=".7"/>
+    <path d="M180 310 C220 370 260 400 320 430 S450 470 510 490" stroke="#4a5c3a" stroke-width="1.2" fill="none"/>
+    <circle cx="900" cy="150" r="7" fill="#8c6a3a"/>
+    <line x1="900" y1="150" x2="970" y2="120" stroke="#8c6a3a" stroke-width="1"/>
+    <path d="M900 150 C870 210 850 270 830 340" stroke="#8c6a3a" stroke-width="1.3" fill="none"/>
+    <circle cx="600" cy="720" r="6" fill="#4a5c3a"/>
+    <path d="M600 720 C580 780 570 820 560 870" stroke="#4a5c3a" stroke-width="1.1" fill="none"/>
+  </svg>
+
+  <div class="site">
+    <nav>
+      <a href="index.html" class="nav-name">Nicole Ellsworth</a>
+      <ul class="nav-links">
+        <li><a href="ArtLessons.html" class="active" aria-current="page">Art Lessons</a></li>
+        <li><a href="art.html">Art</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="student-login.html">Student Login</a></li>
+      </ul>
+    </nav>
+
+    <!-- Fixed side navigation for this page only -->
+    <nav class="lesson-jump-nav" aria-label="Art lesson sections">
+      <p class="lesson-jump-title">On this page</p>
+      <ul class="lesson-jump-links">
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#who-i-teach">Who I Teach</a></li>
+        <li><a href="#sample-work">Artwork</a></li>
+        <li><a href="#how-it-works">Lesson Options</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#getting-started">Book a Consultation</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO: the heading and penguin painting share a row -->
+    <section class="lessons-hero" id="intro">
+      <div class="fade-up">
+        <div class="eyebrow">Art lessons · Children &amp; adults</div>
+        <h1>For curious hands and<br><em>wandering minds.</em></h1>
+      </div>
+      <figure class="hero-artwork fade-up-2">
+        <img src="artImages/penguins.jpg" alt="Penguin painting by Nicole Ellsworth">
+      </figure>
+      <div class="hero-copy fade-up-3">
+        <p>
+          Having grown up in San Diego, I have a special fondness for the community
+          that raised me. I attended La Jolla Elementary and The Bishop's School
+          before heading just a little farther down the road to UC San Diego,
+          where I recently graduated with a degree in Human Biology. I'm currently
+          pursuing a career in medicine, but art has been a lifelong passion of mine,
+          and one I'm especially excited to share with others. I am also a former Youth 
+          Art Month state winner for California and regional winner for 3 years while I 
+          attended Bishops. I am happy to assist with prepping materials for these kind of competitions.
+        </p>
+        <p>
+          I've had the pleasure of teaching both children and adults, and one of
+          my favorite parts of teaching is watching someone surprise themselves
+          with what they're capable of creating. I believe artistic ability is
+          something we develop, not something we're simply born with. Whether your
+          child is eager to explore every art supply within reach, you're hoping
+          to master realistic portraiture, or you haven't picked up a paintbrush
+          in twenty years, I'd love to help you discover what you can make.
+          And, more importantly, enjoy making it. While I am happy to provide
+          traditional art lessons focusing on mastering the foundations of fine art,
+          I am happy to indulge your wildest visions! If you ever wanted to make
+          a fantasy papier-mâché mushroom center piece for your dining table, 
+          we can make it happen. 
+        </p>
+        <p>
+          I think we spend far too much time deciding whether we're "good" at art
+          and far too little time actually making it. I offer lessons for children
+          and adults who want to learn something new, develop their skills, or
+          simply enjoy creating something with their own hands.
+        </p>
+      </div>
+            <a class="contact-link" href="https://forms.gle/vT9yPDcJzBMvtjJL6" target="_blank" rel="noopener noreferrer">Fill out the art lesson inquiry form →</a>
+    </section>
+
+    <!-- APPROACH: text and dragon sculptures share a row -->
+    <section class="lessons-section" id="approach">
+      <div class="section-label">A little about my approach</div>
+      <div class="approach-grid">
+        <div class="approach-text">
+          <h2 class="lessons-heading">Technique matters. So does <em>curiosity.</em></h2>
+          <p>
+            I have experience teaching both children and adults, and I've spent years
+            exploring different mediums myself. I love the technical side of art—the
+            observations, the problem-solving, the small decisions that eventually
+            become a whole piece. But I also believe art should leave room for
+            experimentation, peculiar ideas, and the occasional happy accident.
+          </p>
+          <p>
+            I can teach realistic fine art, including portraiture, observational
+            drawing, and the technical foundations that make an image feel alive.
+            But not everyone dreams of drawing a perfectly proportioned nose
+            (understandably). My lessons are shaped around the person making the
+            art, not a rigid formula for what their work should look like. Whether
+            you have a specific project in mind or no idea where to begin, we'll
+            find something worth making.
+          </p>
+        </div>
+        <figure class="approach-image">
+          <img src="artImages/dragons.png" alt="Colorful dragon sculptures by Nicole Ellsworth">
+        </figure>
+      </div>
+    </section>
+
+    <section class="lessons-section" id="who-i-teach">
+      <div class="section-label">Who I teach</div>
+      <div class="audience-grid">
+        <article class="lesson-card">
+          <div class="small-label">01 / For younger artists</div>
+          <h3>For kids with big ideas</h3>
+          <p>
+            Kids have a remarkable capacity for invention, especially before they
+            learn to second-guess every choice they make. I enjoy helping young
+            artists explore new materials, practice useful skills, and bring their
+            wonderfully strange ideas to life. From drawing and painting to
+            papier-mâché sculptures, there's plenty
+            of room to get creative (and, within reason, messy). We can even
+            make whimisical terrariums or come up with a jungle mural 
+            for your child's room.
+          </p>
+        </article>
+        <article class="lesson-card">
+          <div class="small-label">02 / For older artists</div>
+          <h3>For adults who want to begin—or begin again</h3>
+          <p>
+            You don't need years of experience, expensive supplies, or some
+            mysterious natural talent to enjoy making art. We can work on drawing
+            fundamentals, experiment with paint, explore three-dimensional media,
+            or develop a project that's been living in the back of your mind.
+            I want you to leave with more than a finished piece: with the confidence
+            to keep creating after the lesson ends.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="lessons-section">
+      <div class="section-label">What we can explore</div>
+      <h2 class="lessons-heading">A little bit of <em>everything.</em></h2>
+      <div class="lessons-intro">
+        <p>
+          I've taught and worked across a variety of mediums, including sketching,
+          oil, acrylic, and watercolor painting; sculpting; chalk and oil pastels;
+          mixed media; and three-dimensional crafts such as papier-mâché and resin
+          work. Currently, I am learning how to make naturalistic rock landscapes
+          out of foam board. My philosophy is to dream first, figure out the rest later.
+          Don't know how to make that halloween centerpiece you've dreamed of?
+          Let's figure it out together! I also enjoy designing creative projects specifically for kids.
+          Lessons can focus on one medium or combine several—the materials don't
+          always have to agree with one another.
+        </p>
+      </div>
+      <div class="mediums" aria-label="Art mediums">
+        <span>Portraiture &amp; realism</span><span>Sketching &amp; drawing</span>
+        <span>Colored pencil</span><span>Oil painting</span><span>Acrylic painting</span>
+        <span>Watercolor</span><span>Chalk pastels</span><span>Oil pastels</span>
+        <span>Sculpture</span><span>Mixed media</span><span>Papier-mâché</span>
+        <span>Resin crafts</span><span>Kids' crafts</span>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO: Each category's data-images contains its OWN slides.
+         EDIT: Replace repeated filenames with additional artwork images as you add them.
+         Use exact capitalization and keep images inside the artImages folder. -->
+    <section class="lessons-section" id="sample-work">
+      <div class="section-label">A look at my work</div>
+      <h2 class="lessons-heading">Different materials. <em>Different possibilities.</em></h2>
+      <div class="lessons-intro">
+        <p>
+        Explore a few of the things I love making. I can provide lessons using any of these materials or more! Use the arrows to browse
+        work in each category. You can view more of my work in my
+        <a href="art.html"
+          style="color: #3267a8; text-decoration: underline; font-weight: 600;">
+          art gallery
+        </a>.
+        </p>
+      </div>
+      <div class="samples-grid">
+        <figure class="sample-card" data-images="artImages/fantasy.jpg|artImages/Look Out.jpg|artImages/woods.jpg|artImages/Girl in the Blue Forest.JPG" data-captions="Watercolor|Watercolor|Acrylic|Watercolor">
+          <div class="sample-visual">
+            <img src="artImages/fantasy.jpg" alt="Fantasy artwork by Nicole Ellsworth" loading="lazy">
+              <span class="image-caption" aria-live="polite"></span>
+            <button class="sample-arrow prev" type="button" aria-label="Previous Fantasy image">&#8249;</button>
+            <button class="sample-arrow next" type="button" aria-label="Next Fantasy image">&#8250;</button>
+          </div>
+          <figcaption><span>Fantasy</span><span class="slide-count" aria-live="polite">1 / 4</span></figcaption>
+        </figure>
+        <figure class="sample-card" data-images="artImages/Rowbe.JPG|artImages/Preacher.jpg|artImages/selfPortrait.jpg|artImages/portraitDraft.jpg|artImages/flowers.JPG|artImages/eyes2.jpg" data-captions="Soft pastel|Graphite|Oil paint|Colored pencil process example|Colored pencil process example|Close up, graphite">
+          <div class="sample-visual">
+            <img src="artImages/Rowbe.JPG" alt="Realism &amp; portraiture artwork by Nicole Ellsworth" loading="lazy">
+              <span class="image-caption" aria-live="polite"></span>
+            <button class="sample-arrow prev" type="button" aria-label="Previous Realism &amp; portraiture image">&#8249;</button>
+            <button class="sample-arrow next" type="button" aria-label="Next Realism &amp; portraiture image">&#8250;</button>
+          </div>
+          <figcaption><span>Realism &amp; portraiture</span><span class="slide-count" aria-live="polite">1 / 6</span></figcaption>
+        </figure>
+        <figure class="sample-card" data-images="artImages/dragons.png|artImages/resin.png" data-captions="Polymer clay|Resin and alcohol ink">
+          <div class="sample-visual">
+            <img src="artImages/dragons.png" alt="Sculpture artwork by Nicole Ellsworth" loading="lazy">
+              <span class="image-caption" aria-live="polite"></span>
+            <button class="sample-arrow prev" type="button" aria-label="Previous Sculpture image">&#8249;</button>
+            <button class="sample-arrow next" type="button" aria-label="Next Sculpture image">&#8250;</button>
+          </div>
+          <figcaption><span>Sculpture &amp; resin</span><span class="slide-count" aria-live="polite">1 / 2</span></figcaption>
+        </figure>
+        <figure class="sample-card" data-images="artImages/tentacles.png|artImages/Hello my Old Heart.JPG|artImages/penguins.jpg|artImages/texture.png" data-captions="Acrylic, polymer clay, and resin|Graphite and acrylic|Colored pencil and oil pastel|Texture close up">
+          <div class="sample-visual">
+            <img src="artImages/tentacles.png" alt="Mixed media artwork by Nicole Ellsworth" loading="lazy">
+              <span class="image-caption" aria-live="polite"></span>
+            <button class="sample-arrow prev" type="button" aria-label="Previous Mixed media image">&#8249;</button>
+            <button class="sample-arrow next" type="button" aria-label="Next Mixed media image">&#8250;</button>
+          </div>
+          <figcaption><span>Mixed media</span><span class="slide-count" aria-live="polite">1 / 3</span></figcaption>
+        </figure>
+        <figure class="sample-card" data-images="artImages/panda.png|artImages/Flight Path.JPG|artImages/doodle.jpg|artImages/curves.jpg|artImages/coloringpage.JPG" data-captions="Graphite|Graphite|Graphite|Graphite and chalk|Ink">
+          <div class="sample-visual">
+            <img src="artImages/panda.png" alt="Resin &amp; 3D crafts artwork by Nicole Ellsworth" loading="lazy">
+              <span class="image-caption" aria-live="polite"></span>
+            <button class="sample-arrow prev" type="button" aria-label="Previous Resin &amp; 3D crafts image">&#8249;</button>
+            <button class="sample-arrow next" type="button" aria-label="Next Resin &amp; 3D crafts image">&#8250;</button>
+          </div>
+          <figcaption><span>Pencil work &amp; doodles</span><span class="slide-count" aria-live="polite">1 / 5</span></figcaption>
+        </figure>
+        <figure class="sample-card" data-images="artImages/penguins.jpg|artImages/wallpaper.JPG|artImages/passing.jpg|artImages/jellyfish.JPG|artImages/Flash Back.JPG" data-captions="Pastel and colored pencil|Graphite|Oil paint|Colored pencil|Chalk pastel">
+          <div class="sample-visual">
+            <img src="artImages/penguins.jpg" alt="Illustration &amp; creative projects artwork by Nicole Ellsworth" loading="lazy">
+              <span class="image-caption" aria-live="polite"></span>
+            <button class="sample-arrow prev" type="button" aria-label="Previous Illustration &amp; creative projects image">&#8249;</button>
+            <button class="sample-arrow next" type="button" aria-label="Next Illustration &amp; creative projects image">&#8250;</button>
+          </div>
+          <figcaption><span>Surrealism</span><span class="slide-count" aria-live="polite">1 / 5</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="lessons-section" id="how-it-works">
+      <div class="section-label">How it works</div>
+      <h2 class="lessons-heading">Art lessons, <em>your way.</em></h2>
+      <div class="lessons-intro">
+        <p>
+          I know everyone has a different idea of what a good art lesson looks like,
+          so I like to keep things flexible. We can work toward a specific skill,
+          spend an afternoon trying something completely new, or plan a project
+          around an idea you (or your child) have been dreaming up.
+        </p>
+      </div>
+      <div class="lesson-options">
+        <article class="lesson-option">
+          <span class="small-label">01 / At your place</span>
+          <h3>I'll come to you.</h3>
+          <p>
+            Prefer to create at home? I can bring the lesson to your house,
+            so we can work somewhere familiar and comfortable. We'll coordinate
+            materials and setup beforehand.
+          </p>
+        </article>
+        <article class="lesson-option">
+          <span class="small-label">02 / At my place</span>
+          <h3>Come make art near UTC.</h3>
+          <p>
+            I can also host lessons at my apartment near UTC in San Diego.
+            A dedicated afternoon for making something, without having to
+            find room for another box of art supplies at home.
+          </p>
+        </article>
+        <article class="lesson-option">
+          <span class="small-label">03 / Something bigger</span>
+          <h3>Parties, schools &amp; events.</h3>
+          <p>
+            Birthday parties, school activities, and other group events are
+            welcome, too! I'd love to put together a hands-on project that
+            fits the group, ages, and occasion. A little organized chaos can
+            be a very good thing.
+          </p>
+        </article>
+      </div>
+      <p style="margin-top: 1.8rem; font-size: .9rem; color: var(--muted);">
+        Location, group size, materials, and any additional travel or event costs
+        can be discussed when you inquire.
+      </p>
+    </section>
+
+    <!-- STUDIO ASSISTANT: replace the placeholder with a real photo of Wallie -->
+    <section class="lessons-section" id="meet-wallie">
+      <div class="section-label">An introduction to the studio staff</div>
+      <div class="wallie-layout">
+        <div class="wallie-copy">
+          <h2 class="lessons-heading">Meet the assistant, <em>Wallie.</em></h2>
+          <p>
+            Wallie is my female bearded dragon, occasional art critic, and
+            remarkably dedicated supervisor. She's spunky, endlessly curious,
+            and spends a surprising amount of time watching me work on art.
+            Her contributions are mostly moral support and intense staring,
+            but I like to think she's part of the creative process.
+          </p>
+          <p>
+            She has yet to pick up a paintbrush. I'm keeping my expectations reasonable.
+          </p>
+        </div>
+        <figure class="wallie-photo">
+          <div class="wallie-placeholder" role="img" aria-label="Photo of Wallie coming soon">
+             <img src="Wally the Bearded Dragon Artist.png" alt="Wallie, my bearded dragon, keeping an eye on the art-making"><br>
+          </div>
+          <figcaption>Wallie · Assistant / Artistic supervisor</figcaption>
+        </figure>
+      </div>
+    </section>
+
+<!-- LESSON PRICING -->
+<section class="lessons-section" id="pricing">
+  <div class="section-label">Lesson pricing</div>
+  <h2 class="lessons-heading">An investment in <em>making something.</em></h2>
+
+  <div class="pricing-options">
+    <div class="pricing-option">
+      <div class="small-label">One-on-one</div>
+      <div class="price">$35 <small>/ hour</small></div>
+      <p>Individualized instruction tailored to your interests, experience, and artistic goals.</p>
+    </div>
+
+    <div class="pricing-option">
+      <div class="small-label">Two students</div>
+      <div class="price">$25 <small>/ student / hour</small></div>
+      <p>Perfect for siblings, friends, or anyone who enjoys a little creative company.</p>
+    </div>
+
+    <div class="pricing-option">
+      <div class="small-label">Three to four students</div>
+      <div class="price">$18–20 <small>/ student / hour</small></div>
+      <p>Small-group lessons that combine individual guidance with collaborative creativity.</p>
+    </div>
+  </div>
+
+  <p class="pricing-note">
+    Planning a birthday party, school activity, or a group of five or more?
+    I'd love to help put something together! Contact me for a custom quote.
+  </p>
+
+  <p class="pricing-note">
+    Additional costs may apply depending on materials, travel, and project
+    complexity. A pencil drawing and a resin sculpture have rather different
+    shopping lists. We'll discuss all costs before booking.
+  </p>
+</section>
+
+    
+<!-- BEFORE WE BEGIN -->
+<section class="lessons-section" id="getting-started">
+
+  <div class="section-label">For new students & families</div>
+
+  <h2 class="lessons-heading">
+    Before we <em>begin...</em>
+  </h2>
+
+  <p class="getting-started-intro">
+    Before we break out the paint, pencils, and inevitable creative chaos,
+    I'd love to get to know you! All new students and families are asked
+    to complete a brief interest form and schedule a free 30-minute virtual
+    meeting before their first lesson. This gives us a chance to discuss
+    your interests, creative goals, and what you'd like to make.
+  </p>
+
+  <div class="getting-started-steps">
+
+    <div class="getting-started-step">
+      <span class="step-number">01</span>
+
+      <div class="step-content">
+        <h3>Tell me a little about yourself.</h3>
+        <p>
+          Fill out the student interest form so I can learn about
+          your experience, interests, and what you're hoping
+          to explore through art.
+        </p>
+
+        <a
+          href="https://forms.gle/vT9yPDcJzBMvtjJL6"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="getting-started-link"
+        >
+          Complete the interest form &rarr;
+        </a>
+      </div>
+    </div>
+
+    <div class="getting-started-step">
+      <span class="step-number">02</span>
+
+      <div class="step-content">
+        <h3>Let's get acquainted.</h3>
+        <p>
+          After submitting the form, schedule a free 30-minute
+          virtual consultation. We'll talk about your goals,
+          possible projects, and how our lessons might look.
+        </p>
+
+        <a
+          href="https://calendly.com/nclellsworth/free-30-minute-introductory-meeting-virtual"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="getting-started-link"
+        >
+          Schedule a free consultation &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="getting-started-note">
+    Following our meeting, I'll help you set up your student
+    portal, where you can schedule lessons, track your projects,
+    and watch your art portfolio grow.
+  </p>
+
+</section>
+
+
+    <footer><span>© 2026 Nicole Ellsworth</span></footer>
+  </div>
+  <script>
+    // Each tile keeps its own slide index; arrows do not affect other tiles.
+    document.querySelectorAll('.sample-card[data-images]').forEach(function (card) {
+      const images = card.dataset.images.split('|').filter(Boolean);
+      const photo = card.querySelector('.sample-visual img');
+      const count = card.querySelector('.slide-count');
+      const caption = card.querySelector('.image-caption');
+      const captions = (card.dataset.captions || '').split('|');
+      let index = 0;
+
+      function showImage(nextIndex) {
+        index = (nextIndex + images.length) % images.length;
+        photo.src = images[index];
+        photo.alt = card.querySelector('figcaption span').textContent +
+          ' artwork by Nicole Ellsworth, image ' + (index + 1);
+        count.textContent = (index + 1) + ' / ' + images.length;
+        caption.textContent = captions[index] || 'Artwork by Nicole Ellsworth';
+      }
+      showImage(0);
+      card.querySelector('.prev').addEventListener('click', function () { showImage(index - 1); });
+      card.querySelector('.next').addEventListener('click', function () { showImage(index + 1); });
+    });
+  </script>
+</body>
+</html>

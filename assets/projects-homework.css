@@ -1,0 +1,18 @@
+/* Scoped additions; uses the existing site palette. */
+.studio-task-list {list-style:none;padding:0;margin:1rem 0;display:grid;gap:.65rem}
+.studio-task {border:1px solid var(--faint);padding:1rem;background:var(--paper2);min-width:0}
+.studio-task-head {display:flex;gap:.6rem;align-items:flex-start}
+.studio-task-head input[type=checkbox]{width:auto;margin:.25rem .35rem 0 0;flex:0 0 auto}
+.studio-task-copy {flex:1;min-width:0}
+.studio-task-title {font:400 1.1rem 'Cormorant Garamond',serif;color:var(--ink)}
+.studio-task-desc {margin:.3rem 0 0;color:var(--ink2);font-size:.84rem;white-space:pre-wrap;overflow-wrap:anywhere}
+.studio-task-actions{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.75rem}
+.studio-task-actions button{font:400 .72rem 'Lato',sans-serif;padding:.4rem .7rem;min-height:0}
+.studio-task-done .studio-task-title{text-decoration:line-through;opacity:.6}
+.studio-task-form{display:grid;gap:.5rem;margin-top:1rem}
+.studio-task-form label{margin-top:.5rem}
+.studio-task-form button{justify-self:start}
+.studio-task-help{font-size:.82rem;color:var(--muted)}
+.studio-task-error{color:#8c3737}
+.studio-dream-controls{display:flex;gap:.4rem;margin-top:.45rem}
+.studio-dream-controls button{font:400 .7rem 'Lato',sans-serif;padding:.3rem .6rem;min-height:0}

@@ -1,0 +1,169 @@
+/* Standalone fallback palette; inherits your existing style.css where available */
+:root{--paper:#f9f7f2;--paper2:#f0ede5;--ink:#282b22;--ink2:#55594f;--muted:#777b6e;--neuron:#4a5c3a;--faint:#d8d7cd}
+.portal-shell{max-width:1060px;margin:0 auto;padding:3.5rem 1.5rem 6rem}.portal-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}.portal-head h1,.portal-shell h2,.portal-shell h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400}.portal-head h1{font-size:clamp(2.3rem,4vw,3.5rem);margin:.7rem 0}.portal-shell h2{font-size:2rem;margin:0 0 1.1rem}.portal-shell h3{font-size:1.5rem;margin:.3rem 0}.portal-shell p,.portal-shell li{line-height:1.7}.portal-shell .eyebrow{font:400 .68rem Lato,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}.portal-panel{margin:2rem 0;padding:1.6rem;border:1px solid var(--faint);background:var(--paper)}.portal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.3rem}.portal-trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.art-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.art-piece{background:var(--paper2);padding:.65rem;min-width:0}.art-piece img{display:block;width:100%;height:220px;object-fit:contain}.art-piece strong{display:block;margin-top:.5rem}.muted{color:var(--muted)}.portal-shell label{display:block;margin:.8rem 0 .3rem;font-size:.88rem}.portal-shell input,.portal-shell select,.portal-shell textarea{display:block;box-sizing:border-box;width:100%;padding:.7rem;border:1px solid var(--faint);border-radius:0;background:#fff;color:var(--ink);font:inherit}.portal-shell textarea{min-height:90px}.portal-shell button,.portal-shell .action{display:inline-block;margin:.7rem .5rem .3rem 0;padding:.7rem 1.1rem;border:1px solid var(--neuron);background:var(--neuron);color:#fff;font:400 .75rem Lato,Arial,sans-serif;letter-spacing:.08em;text-decoration:none;cursor:pointer}.portal-shell button.secondary,.portal-shell .action.secondary{background:transparent;color:var(--neuron)}.portal-shell button:disabled{opacity:.6;cursor:not-allowed}.portal-list{list-style:none;margin:0;padding:0}.portal-list li{padding:.8rem 0;border-bottom:1px solid var(--faint)}.status{min-height:1.3rem;color:var(--neuron);font-size:.87rem}.status.error{color:#9d3131}.compact{max-width:540px}.hidden{display:none!important}.portal-form-row{display:flex;gap:.5rem;align-items:end}.portal-form-row>*{flex:1}.calendar-frame{width:100%;height:720px;border:0}.portal-shell a:not(.action){color:#3267a8;text-decoration:underline}.tiny{font-size:.78rem}.stack{display:grid;gap:.7rem}@media(max-width:700px){.portal-grid,.portal-trio,.art-grid{grid-template-columns:1fr}.portal-shell{padding:2rem 1.1rem}.portal-panel{padding:1.1rem}.portal-form-row{display:block}}
+
+
+/* --- LESSON BOOKING SECTION --- */
+
+.booking-section {
+  margin-top: 2rem;
+}
+
+.booking-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 2.7rem);
+  font-weight: 400;
+  color: var(--ink);
+  margin: .5rem 0 1rem;
+}
+
+.booking-section h2 em {
+  color: var(--neuron);
+  font-weight: 300;
+}
+
+.booking-intro {
+  max-width: 730px;
+  font-size: .97rem;
+  line-height: 1.85;
+  color: var(--ink2);
+  margin-bottom: 2.5rem;
+}
+
+/* Card layout */
+.booking-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.booking-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.7rem 1.45rem;
+  background: var(--paper2);
+  border: 1px solid var(--faint);
+  min-width: 0;
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--neuron);
+}
+
+/* Small card labels */
+.booking-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: .75rem;
+  margin-bottom: 2rem;
+}
+
+.booking-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--neuron);
+}
+
+.booking-type {
+  font-family: 'Lato', sans-serif;
+  font-size: .62rem;
+  font-weight: 400;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* Title and description */
+.booking-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 1rem;
+}
+
+.booking-card p {
+  font-size: .89rem;
+  line-height: 1.8;
+  color: var(--ink2);
+  margin: 0 0 2rem;
+}
+
+/* Duration and student count */
+.booking-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem 1rem;
+  margin-top: auto;
+  padding-bottom: 1.2rem;
+  font-family: 'Lato', sans-serif;
+  font-size: .72rem;
+  color: var(--muted);
+}
+
+.booking-details span + span {
+  border-left: 1px solid var(--faint);
+  padding-left: 1rem;
+}
+
+/* Booking link */
+.booking-link {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: 'Lato', sans-serif;
+  font-size: .78rem;
+  font-weight: 400;
+  color: var(--neuron);
+  text-decoration: none;
+  border-bottom: 1px solid var(--neuron);
+  padding-bottom: .4rem;
+  transition: opacity .2s ease;
+}
+
+.booking-link:hover {
+  opacity: .6;
+}
+
+/* First-time student notice */
+.booking-note {
+  max-width: 780px;
+  font-size: .85rem;
+  line-height: 1.9;
+  color: var(--muted);
+  margin: 2.5rem 0 0;
+  font-style: italic;
+}
+
+.booking-note a {
+  color: var(--neuron);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Responsive layout */
+@media (max-width: 1000px) {
+  .booking-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .booking-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-card {
+    padding: 1.5rem;
+  }
+
+  .booking-card-top {
+    margin-bottom: 1.4rem;
+  }
+}

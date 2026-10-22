@@ -1,0 +1,234 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Art Studio | Nicole Ellsworth</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/portal.css">
+<link rel="stylesheet" href="assets/navigation.css">
+<link rel="stylesheet" href="assets/folders.css">
+<link rel="stylesheet" href="assets/projects-homework.css">
+<link rel="stylesheet" href="assets/student-art-upload.css">
+</head>
+
+<body>
+<div class="site">
+
+  <nav>
+    <a href="index.html" class="nav-name">Nicole Ellsworth</a>
+    <ul class="nav-links">
+      <li><a href="ArtLessons.html">Art Lessons</a></li>
+      <li><a href="art.html">Art</a></li>
+      <li><a href="writing.html">Writing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="student-login.html">Student Login</a></li>
+    </ul>
+  </nav>
+
+  <main class="portal-shell">
+
+    <div class="portal-head">
+      <div>
+        <div class="eyebrow">My little art studio</div>
+        <h1>Your art journey.</h1>
+      </div>
+      <div>
+        <a id="admin-link" class="action secondary hidden"
+           href="instructor-portal.html">Instructor view</a>
+        <button id="logout" class="secondary">Sign out</button>
+      </div>
+    </div>
+
+    <p id="status" class="status" role="status"></p>
+
+    <!-- STUDENT PROFILE -->
+    <section class="portal-panel">
+      <label for="student-select">Student profile</label>
+      <select id="student-select"
+              aria-label="Choose student profile"></select>
+      <p class="muted tiny">
+        Parents with multiple children can switch profiles here.
+      </p>
+    </section>
+
+    <div id="dashboard" class="hidden">
+
+      <div class="portal-grid">
+
+        <!-- DREAM PROJECTS -->
+        <section class="portal-panel">
+          <h2>Dream projects</h2>
+          <ul class="portal-list" id="dream-list"></ul>
+
+          <form id="dream-form">
+            <label for="dream-title">Add a dream project</label>
+            <input id="dream-title" maxlength="160" required
+                   placeholder="Paint a portrait of my dog…">
+
+            <label for="dream-notes">Notes (optional)</label>
+            <textarea id="dream-notes" maxlength="1000"
+                      placeholder="Ideas, colors, and materials"></textarea>
+
+            <button>Add to my list +</button>
+          </form>
+        </section>
+
+        <!-- LESSON HISTORY -->
+        <section class="portal-panel">
+          <h2>Past & upcoming sessions</h2>
+          <ul class="portal-list" id="session-list"></ul>
+          <p class="tiny muted">
+            Bookings are shown here when Nicole adds them.
+            Calendly appointments do not automatically sync yet.
+          </p>
+        </section>
+
+      </div>
+
+      <!-- PORTFOLIO -->
+      <section class="portal-panel">
+        <h2>My portfolio</h2>
+        <div class="art-grid" id="portfolio"></div>
+      </section>
+
+      <!-- BOOKING SECTION -->
+      <section class="portal-panel booking-section" id="schedule">
+
+        <div class="eyebrow">A little more time to create</div>
+        <h2>Schedule your next <em>art adventure.</em></h2>
+
+        <p class="booking-intro">
+          Ready to make something? Choose a session below to find
+          an available date and time. Private lessons can accommodate
+          up to four students, so you're welcome to bring along
+          siblings or friends.
+        </p>
+
+        <div class="booking-grid">
+
+          <!-- 60 MINUTE LESSON -->
+          <article class="booking-card">
+
+            <div class="booking-card-top">
+              <span class="booking-number">01</span>
+              <span class="booking-type">Private lesson</span>
+            </div>
+
+            <h3>One creative hour.</h3>
+
+            <p>
+              A little time to experiment, learn a new technique,
+              or keep making progress on an existing project.
+            </p>
+
+            <div class="booking-details">
+              <span>60 minutes</span>
+              <span>1–4 students</span>
+            </div>
+
+            <a class="booking-link"
+               href="https://calendly.com/nclellsworth/private-art-lesson-60-minutes"
+               target="_blank"
+               rel="noopener noreferrer">
+              Book this lesson &rarr;
+            </a>
+
+          </article>
+
+          <!-- 120 MINUTE LESSON -->
+          <article class="booking-card">
+
+            <div class="booking-card-top">
+              <span class="booking-number">02</span>
+              <span class="booking-type">Extended private lesson</span>
+            </div>
+
+            <h3>Room to get carried away.</h3>
+
+            <p>
+              Two uninterrupted hours for ambitious projects,
+              getting lost in the details, or trying something new. If needed, we can discuss longer lessons (2+ hrs) 
+              during the consult meeting.
+            </p>
+
+            <div class="booking-details">
+              <span>120 minutes</span>
+              <span>1–4 students</span>
+            </div>
+
+            <a class="booking-link"
+               href="https://calendly.com/nclellsworth/private-art-lesson-120-minutes"
+               target="_blank"
+               rel="noopener noreferrer">
+              Book this lesson &rarr;
+            </a>
+
+          </article>
+
+          <!-- PRIVATE GROUP EVENT -->
+          <article class="booking-card">
+
+            <div class="booking-card-top">
+              <span class="booking-number">03</span>
+              <span class="booking-type">Private group event</span>
+            </div>
+
+            <h3>The more, the messier.</h3>
+
+            <p>
+              A creative gathering for larger groups, celebrations,
+              and projects best enjoyed with a few extra pairs
+              of paint-covered hands. If needed, we can discuss longer lessons (2+ hrs) 
+              during the consult meeting.
+            </p>
+
+            <div class="booking-details">
+              <span>120 minutes</span>
+              <span>5+ students</span>
+            </div>
+
+            <a class="booking-link"
+               href="https://calendly.com/nclellsworth/group-event-5-or-more-students-120-minutes"
+               target="_blank"
+               rel="noopener noreferrer">
+              Book this event &rarr;
+            </a>
+
+          </article>
+
+        </div>
+
+        <p class="booking-note">
+          New to the studio? All first-time students and families
+          must complete the interest form and attend a free
+          introductory consultation before scheduling their first lesson. 
+          Visit the
+          <a href="ArtLessons.html#getting-started">Art Lessons page</a>
+          to get started.
+        </p>
+
+        <!-- Retained for compatibility with existing student.js -->
+        <div class="hidden" aria-hidden="true">
+          <a id="calendly-link" href="#">Calendly</a>
+          <div id="calendly-embed"></div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer>© 2026 Nicole Ellsworth</footer>
+
+</div>
+
+<script type="module" src="assets/student.js"></script>
+<script type="module" src="assets/folders.js"></script>
+<script type="module" src="assets/projects-homework.js"></script>
+<script type="module" src="assets/student-art-upload.js"></script>
+</body>
+</html>

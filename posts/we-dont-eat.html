@@ -44,6 +44,7 @@
 
     /* Nav */
     nav {
+      flex-wrap: wrap; gap: 1.5rem;
       display: flex; align-items: center; justify-content: space-between;
       padding: 2.5rem 0 2rem; border-bottom: 0.5px solid var(--faint);
     }
@@ -53,8 +54,9 @@
       color: var(--ink2); transition: color 0.2s;
     }
     .nav-name:hover { color: var(--neuron); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 2rem; list-style: none; }
     .nav-links a {
+      white-space: nowrap;
       font-family: 'Lato', sans-serif; font-size: 0.68rem;
       font-weight: 300; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--muted); transition: color 0.2s;
@@ -211,6 +213,7 @@
     .fade-up   { animation: fadeUp 0.8s ease both; }
     .fade-up-2 { animation: fadeUp 0.8s ease both 0.14s; }
   </style>
+<link rel="stylesheet" href="../assets/navigation.css">
 </head>
 <body>
 
@@ -230,10 +233,13 @@
   <nav>
     <a href="../index.html" class="nav-name">Nicole Ellsworth</a>
     <ul class="nav-links">
-      <li><a href="../writing.html" class="active">Writing</a></li>
-      <li><a href="../art.html">Art</a></li>
-      <li><a href="../about.html">About</a></li>
-    </ul>
+        <li><a href="../ArtLessons.html">Art Lessons</a></li>
+        <li><a href="../art.html">Art</a></li>
+        <li><a href="../writing.html" class="active">Writing</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../student-login.html">Student Login</a></li>
+      </ul>
   </nav>
 
   <div class="post-header fade-up">

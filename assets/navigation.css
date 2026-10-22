@@ -1,0 +1,35 @@
+/* Shared across the main pages and standalone writing pages. */
+nav .nav-links {
+  align-items: center;
+}
+
+nav .nav-links a[href$="student-login.html"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: .65rem 1rem;
+  border: 1px solid rgba(74, 92, 58, .4);
+  border-radius: 6px;
+  background-color: rgba(74, 92, 58, .12);
+  color: #3b4b2e;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background-color .2s, border-color .2s;
+}
+
+nav .nav-links a[href$="student-login.html"]:hover,
+nav .nav-links a[href$="student-login.html"].active {
+  background-color: rgba(74, 92, 58, .22);
+  border-color: rgba(74, 92, 58, .7);
+}
+
+nav .nav-links a[href$="student-login.html"]:focus-visible {
+  outline: 2px solid #4a5c3a;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nav .nav-links a[href$="student-login.html"] { transition: none; }
+}

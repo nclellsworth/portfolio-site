@@ -1,0 +1,7 @@
+.student-art-upload {border-top:1px solid var(--faint);margin-top:2rem;padding-top:1.6rem}
+.student-art-upload h3 {font:400 1.7rem 'Cormorant Garamond',serif;color:var(--ink);margin:0 0 .5rem}
+.student-art-upload form {display:grid;gap:.6rem;max-width:550px;margin-top:1.3rem}
+.student-art-upload label {font:400 .78rem 'Lato',sans-serif;color:var(--ink2);margin-top:.5rem}
+.student-art-upload input,.student-art-upload textarea {width:100%;box-sizing:border-box}
+.student-art-upload button {justify-self:start;margin-top:.6rem}
+.student-art-upload button:disabled {opacity:.6;cursor:wait}

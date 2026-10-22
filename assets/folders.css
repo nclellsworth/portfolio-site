@@ -1,0 +1,24 @@
+/* Separate art-folder UI; matches the existing portal palette. */
+.folder-manager{margin-top:1.3rem}
+.folder-manager h3{margin:0 0 .7rem;font-family:'Cormorant Garamond',serif;font-weight:400}
+.folder-tools{display:flex;gap:.6rem;align-items:end;flex-wrap:wrap;margin:0 0 1rem}
+.folder-tools input{max-width:300px;flex:1 1 190px}
+.folder-tools button{white-space:nowrap}
+.folder-tabs{display:flex;flex-wrap:wrap;gap:.45rem;margin:1rem 0 1.4rem}
+.portal-shell .folder-tabs button{margin:0;padding:.55rem .8rem;border:1px solid var(--faint);background:transparent;color:var(--ink2);letter-spacing:0}
+.portal-shell .folder-tabs button[aria-pressed="true"]{background:var(--neuron);border-color:var(--neuron);color:#fff}
+.folder-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.folder-art{background:var(--paper2);padding:.8rem;min-width:0}
+.folder-art img{display:block;width:100%;height:210px;object-fit:contain}
+.folder-art-title{display:block;margin:.7rem 0 .3rem;font-weight:400}
+.folder-art-note{font-size:.78rem;color:var(--muted);line-height:1.5}
+.folder-art label{font-size:.75rem}
+.folder-art select{width:100%;font-size:.8rem}
+.portal-shell .folder-art .delete-art{background:transparent;color:#8b3b30;border-color:#b9a19e;padding:.5rem .7rem;letter-spacing:0}
+.portal-shell .folder-actions button{background:transparent;color:var(--neuron);font-size:.72rem;padding:.5rem .7rem}
+.folder-message{min-height:1.25rem;font-size:.83rem;color:var(--neuron)}
+.folder-empty{font-size:.9rem;color:var(--muted)}
+/* Replace old static portfolio rendering only after folder manager initializes. */
+.folder-manager-ready #portfolio{display:none}
+@media(max-width:850px){.folder-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.folder-gallery{grid-template-columns:1fr}}

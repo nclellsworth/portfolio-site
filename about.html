@@ -7,63 +7,126 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .about-layout {
-      padding: 5rem 0 5rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      gap: 5rem;
-      align-items: start;
-    }
+    
+/* --- About page layout --- */
+.about-layout {
+  padding: 5rem 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  column-gap: 4rem;
+  row-gap: 4.5rem;
+  align-items: start;
+}
 
-    /* Bio */
-    .about-bio h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300;
-      color: var(--ink);
-      margin-bottom: 2rem;
-      line-height: 1.15;
-    }
+/* --- Personal facts --- */
+.about-facts {
+  margin-bottom: 3rem;
+}
 
-    .about-bio h1 em {
-      font-style: italic;
-      color: var(--neuron);
-    }
+.about-facts h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 1.3rem;
+}
 
-    .about-bio p {
-      font-size: 1.05rem;
-      line-height: 1.95;
-      color: var(--ink2);
-      margin-bottom: 1.5rem;
-      max-width: 620px;
-    }
+.about-facts ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    .about-bio p:last-of-type {
-      margin-bottom: 0;
-    }
+.about-facts li {
+  font-size: .95rem;
+  line-height: 1.95;
+  color: var(--ink2);
+}
 
-    /* Bio photo */
-    .bio-photo {
-      width: 100%;
-      aspect-ratio: 6 / 8;
-      object-fit: cover;
-      display: block;
-      border: 0.5px solid var(--faint);
-    }
+/* Soft labels instead of heavy bold */
+.about-facts li strong {
+  font-weight: 400;
+  color: var(--neuron);
+}
 
-    /* Mobile */
-    @media (max-width: 760px) {
-      .about-layout {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-        padding: 3rem 0 4rem;
-      }
+/* --- Short biography --- */
+.about-bio {
+  min-width: 0;
+}
 
-      .bio-photo {
-        max-width: 320px;
-      }
-    }
+.about-bio p {
+  font-size: 1.05rem;
+  line-height: 1.95;
+  color: var(--ink2);
+  margin: 0;
+}
+
+/* --- Biography photograph --- */
+.bio-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 6 / 8;
+  object-fit: cover;
+  border: .5px solid var(--faint);
+}
+
+/* --- Full-width Instagram reflection --- */
+.art-reflection {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.art-reflection h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 0 0 2rem;
+}
+
+.art-reflection h3 em {
+  font-style: italic;
+  color: var(--neuron);
+}
+
+.art-reflection p {
+  font-size: 1.05rem;
+  line-height: 1.95;
+  color: var(--ink2);
+  width: 100%;
+  max-width: none;
+  margin: 0 0 1.7rem;
+}
+
+.art-reflection p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Mobile --- */
+@media (max-width: 760px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 3rem 0 4rem;
+  }
+
+  .about-facts {
+    margin-bottom: 2.5rem;
+  }
+
+  .bio-photo {
+    max-width: 320px;
+  }
+
+  .art-reflection {
+    grid-column: 1;
+  }
+}
   </style>
+<link rel="stylesheet" href="assets/navigation.css">
 </head>
 
 <body>
@@ -135,31 +198,62 @@
       <a href="index.html" class="nav-name">Nicole Ellsworth</a>
 
       <ul class="nav-links">
-        <li><a href="writing.html">Writing</a></li>
+        <li><a href="ArtLessons.html">Art Lessons</a></li>
         <li><a href="art.html">Art</a></li>
-        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="about.html" class="active" aria-current="page">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="student-login.html">Student Login</a></li>
       </ul>
     </nav>
 
-    <main class="about-layout">
+  
+<main class="about-layout">
 
+  <!-- PERSONAL INTRODUCTION -->
+  <div class="about-bio fade-up">
 
-<div class="about-bio fade-up">
- 
-<p>
-  Alongside pursuing a medical career, I also create art. Creating art helps me shape the way I interpret
-  my own experiences and the world around me, which I find especially critical as my life gets busier
-  and more complex. Art is my way of probing beyond the aesthetic, beyond the mesmerizing allure of
-  visual consumption which plagues our current art culture. An ambitious pursuit for someone who
-  spends a considerable amount of time staring at things.
-</p>
+    <div class="about-facts">
+      <h3>A few things about me...</h3>
+      <ul>
+        <li><strong>From:</strong> Born and raised in San Diego, California.</li>
+        <li><strong>Education:</strong> The Bishop's School,
+          UC San Diego (B.S. Human Biology).</li>
+        <li><strong>Currently:</strong> Pursuing a career in medicine.</li>
+        <li><strong>Favorite food:</strong> Any sandwich with a heaping serving of garlic mayo.</li>
+        <li><strong>Favorite drink:</strong> Coffee and Dudh Chiya.</li>
+        <li><strong>Favorite pastimes:</strong> Making art, gardening, trail running,
+          building things, and spending time with my bearded dragon, Wally.</li>
+      </ul>
+    </div>
 
+    <p>
+      Alongside pursuing a medical career, I create art. Creating art helps me shape
+      the way I interpret my own experiences and the world around me, which I find
+      especially critical as my life gets busier and more complex. Art is my way
+      of probing beyond the aesthetic, beyond the mesmerizing allure of visual
+      consumption which litters our current art culture. 
+    </p>
+
+  </div>
+
+  <!-- BIO PHOTO -->
+  <div class="fade-up-2">
+    <img src="bioPic.JPG" alt="Nicole Ellsworth" class="bio-photo">
+  </div>
+
+  <!-- FULL-WIDTH ESSAY -->
+  <section class="art-reflection fade-up-3">
+
+    <h3>
+      <em>Why I moved my gallery from Instagram to this website...</em>
+    </h3>
 <p>
   I am not trying to grow my art into a brand or source of income, so my former presence on social media
   served little practical value. Instead, it entombed me in greed. My own greed. The greed of others.
   I became hungry for every scrap of recognition until that hunger slipped into my own creative process.
   I used to judge my work by my own standard for excellence, or by comparing it to the end product
-  I had envisioned. But after years on Instagram, I found myself thinking about how many likes a piece
+  I had envisioned. But after years on Instagram, I instead found myself thinking about how many likes a piece
   would get as I made it. I envisioned my unfinished work within the (literal) frame of a post.
   A small number beside a heart had somehow acquired considerable authority over my own.
   My art had a home, and it was no longer my heart. It was a platform. A product. But a product
@@ -182,7 +276,7 @@
 </p>
 
 <p>
-  How do I differentiate art from aesthetic consumption? On the basis of what each affords its viewer.
+  How do I differentiate art from aesthetic consumption? I do so on the basis of what each affords its viewer.
   Art provides an experience, perhaps even a discovery. A revelation. It plucks on some distant string
   of the wandering heart. Aesthetic consumption, on the other hand, only entertains. It engages the
   senses without affording experience. For example, there are many paintings and films I find entertaining
@@ -190,7 +284,7 @@
   into a space I could never physically go? No.
 
   Similarly, when I think of the best meal I've ever had, I don't think of a BBQ Pringle (to which I
-  have an admittedly embarrassing devotion). I think of the first succulent bite of a truffle risotto.
+  have an admittedly embarrassing devotion); I think of the first succulent bite of a truffle risotto.
   Both are delicious, but only one has ever made me reconsider becoming an epicurean.
   I will leave you to guess which.
 </p>
@@ -199,26 +293,18 @@
   It is worth mentioning that everything I have stated here is just opinion and not a legitimate
   argument against social media (which would require a much more rigorous argument, and preferably
   one with citations). I am sure there are those who have found a rich life in consumption and have
-  even manipulated aesthetic consumption for their own satisfaction. I, however, have only found
-  hollowness in my presence online.
-
+  even manipulated aesthetic consumption for their own satisfaction. I, however, am not blessed with
+  such adaptability. No, my social media presence has only made me feel more hollow and less human.
+</p>
+<p>
   Therefore, this website is now the sole repository for my art, unless I ever decide to start seeking
   formal recognition for my work, at which point I reserve the right to become a hypocrite.
   For those friends and family who can no longer "keep up" with my life due to my absence on social media,
   you can be sure to find me in the garden, stooped over a painting, or tunnel-visioned on some new project.
   I am still very much alive, just considerably worse at advertising it.
 </p>
-
 </div>
-
-
-      <div class="fade-up-2">
-        <img
-          src="bioPic.JPG"
-          alt="Nicole Ellsworth"
-          class="bio-photo"
-        >
-      </div> 
+</div>
 
     </main>
 
