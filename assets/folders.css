@@ -4,6 +4,9 @@
 .folder-tools{display:flex;gap:.6rem;align-items:end;flex-wrap:wrap;margin:0 0 1rem}
 .folder-tools input{max-width:300px;flex:1 1 190px}
 .folder-tools button{white-space:nowrap}
+.folder-upload{border-top:1px solid var(--faint);padding-top:1rem;margin-top:1rem;margin-bottom:1.3rem}
+.folder-upload h3{margin-bottom:.5rem}
+.folder-upload select{max-width:360px}
 .folder-tabs{display:flex;flex-wrap:wrap;gap:.45rem;margin:1rem 0 1.4rem}
 .portal-shell .folder-tabs button{margin:0;padding:.55rem .8rem;border:1px solid var(--faint);background:transparent;color:var(--ink2);letter-spacing:0}
 .portal-shell .folder-tabs button[aria-pressed="true"]{background:var(--neuron);border-color:var(--neuron);color:#fff}

@@ -17,6 +17,14 @@ function tell(message,error=false){
   msg.textContent=message;msg.style.color=error?'#9d3131':'var(--neuron)';
 }
 function currentStudent(){return $('student-select')?.value||null;}
+function setReady(ready){
+  $('folder-manager').classList.remove('hidden');
+  for(const formId of ['folder-form','folder-art-form']){
+    for(const field of $(formId).querySelectorAll('input, textarea, select, button'))field.disabled=!ready;
+  }
+  if(!instructor)$('portfolio').parentElement.classList.toggle('folder-manager-ready',ready);
+  else $('art-form').closest('.portal-panel').classList.toggle('hidden',ready);
+}
 function mount(){
   const target=instructor?$('admin-area'):$('portfolio')?.parentElement;
   if(!target)return;
@@ -29,6 +37,23 @@ function mount(){
   const form=node('form',undefined,'folder-tools');form.id='folder-form';
   const input=node('input');input.id='new-folder-name';input.placeholder='New folder name (e.g., Watercolors)';input.maxLength=80;input.required=true;input.setAttribute('aria-label','New folder name');
   const add=node('button','Create folder');add.type='submit';form.append(input,add);wrapper.append(form);
+  const upload=node('form',undefined,'folder-upload');upload.id='folder-art-form';
+  upload.append(node('h3','Add artwork to a folder'));
+  for(const [id,caption,tag] of [
+    ['folder-art-title','Artwork title','input'],
+    ['folder-art-notes','Medium or notes (optional)','textarea'],
+    ['folder-art-target','Project folder','select'],
+    ['folder-art-file','Image (JPG, PNG, WebP; up to 8 MB)','input']
+  ]){
+    const label=node('label',caption);label.htmlFor=id;
+    const field=node(tag);field.id=id;
+    if(id==='folder-art-title'){field.required=true;field.maxLength=160;}
+    if(id==='folder-art-notes')field.maxLength=1500;
+    if(id==='folder-art-file'){field.type='file';field.accept='image/jpeg,image/png,image/webp';field.required=true;}
+    upload.append(label,field);
+  }
+  const uploadButton=node('button','Upload artwork');uploadButton.type='submit';upload.append(uploadButton);
+  wrapper.append(upload);
   const tabs=node('div',undefined,'folder-tabs');tabs.id='folder-tabs';tabs.setAttribute('aria-label','Artwork folders');wrapper.append(tabs);
   const actions=node('div',undefined,'folder-actions');actions.id='folder-actions';wrapper.append(actions);
   const message=node('p',undefined,'folder-message');message.id='folder-message';message.setAttribute('role','status');wrapper.append(message);
@@ -41,12 +66,14 @@ function mount(){
     $('portfolio').insertAdjacentElement('beforebegin',wrapper);
   }
   form.addEventListener('submit',createFolder);
+  upload.addEventListener('submit',uploadArtwork);
   $('student-select').addEventListener('change',()=>{activeFolder='all';refresh();});
+  setReady(false);
 }
 async function refresh(){
   const id=currentStudent();activeStudent=id;
   const stamp=++sequence;
-  if(!id){$('folder-gallery').replaceChildren();$('folder-tabs').replaceChildren();return;}
+  if(!id){$('folder-gallery').replaceChildren();$('folder-tabs').replaceChildren();setReady(false);return;}
   tell('');
   const [folderRes,artRes]=await Promise.all([
     db.from('art_folders').select('id,name').eq('student_id',id).order('created_at'),
@@ -54,16 +81,24 @@ async function refresh(){
   ]);
   if(stamp!==sequence||id!==currentStudent())return;
   if(folderRes.error||artRes.error){
-    $('portfolio')?.parentElement.classList.remove('folder-manager-ready');
     const missing=missingSchema(folderRes.error,'art_folders')
       || ['category','folder_id','uploaded_by'].some(column=>missingSchema(artRes.error,column));
-    $('folder-manager').classList.toggle('hidden',missing);
-    if(!missing)tell((folderRes.error||artRes.error).message,true);
+    setReady(false);
+    $('folder-tabs').replaceChildren();
+    $('folder-actions').replaceChildren();
+    $('folder-gallery').replaceChildren();
+    tell(missing?(instructor
+      ? 'Folder tools need the Supabase gallery upgrade. Your existing artwork remains stored, and the regular instructor upload form is available.'
+      : 'Folder and upload tools need the Supabase gallery upgrade. Existing artwork is still shown below.')
+      :(folderRes.error||artRes.error).message,true);
     return;
   }
-  $('folder-manager').classList.remove('hidden');
-  if(!instructor)$('portfolio').parentElement.classList.add('folder-manager-ready');
+  setReady(true);
   currentFolders=folderRes.data||[];currentArt=artRes.data||[];
+  const destination=$('folder-art-target');
+  const selected=destination.value;
+  destination.replaceChildren(opt('','Unfiled'),...currentFolders.map(f=>opt(f.id,f.name)));
+  if(currentFolders.some(f=>f.id===selected))destination.value=selected;
   if(activeFolder!=='all'&&!currentFolders.some(f=>f.id===activeFolder))activeFolder='all';
   await render(stamp);
 }
@@ -108,6 +143,38 @@ async function render(stamp){
     const remove=node('button','Delete artwork','delete-art');remove.type='button';remove.onclick=()=>deleteArtwork(a);
     tile.append(label,select,remove);gallery.append(tile);
   }
+}
+async function uploadArtwork(event){
+  event.preventDefault();
+  const id=currentStudent();
+  const file=$('folder-art-file').files[0];
+  const title=$('folder-art-title').value.trim();
+  const extensions={'image/jpeg':'jpg','image/png':'png','image/webp':'webp'};
+  if(!id||!file||!title)return;
+  if(!extensions[file.type]||file.size===0||file.size>8*1024*1024)
+    return tell('Use a JPG, PNG or WebP image no larger than 8 MB.',true);
+  const path=`${id}/${crypto.randomUUID()}.${extensions[file.type]}`;
+  const submit=event.currentTarget.querySelector('button[type="submit"]');
+  submit.disabled=true;
+  tell('Uploading artwork…');
+  try{
+    const uploaded=await db.storage.from('student-art').upload(path,file,{contentType:file.type,upsert:false});
+    if(uploaded.error)return tell(uploaded.error.message,true);
+    const {error}=await db.from('artworks').insert({
+      student_id:id,title,notes:$('folder-art-notes').value.trim(),storage_path:path,
+      folder_id:$('folder-art-target').value||null,category:'art',
+      uploaded_by:instructor?'instructor':'student'
+    });
+    if(error){
+      const cleanup=await db.storage.from('student-art').remove([path]);
+      return tell(cleanup.error?`${error.message} The uploaded file may need cleanup.`:error.message,true);
+    }
+    event.currentTarget.reset();
+    activeFolder='all';
+    await refresh();
+    tell('Artwork uploaded to the portfolio.');
+  }catch(error){tell(error.message||'Upload failed.',true);}
+  finally{submit.disabled=false;}
 }
 async function createFolder(e){
   e.preventDefault();const id=currentStudent(),name=$('new-folder-name').value.trim();
