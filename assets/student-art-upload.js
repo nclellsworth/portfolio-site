@@ -1,5 +1,5 @@
 // Student/parent uploads: add-on, does not replace your existing portal scripts.
-import {db, requireUser, signedArtwork} from './client.js';
+import {db, requireUser, signedArtwork, missingSchema} from './client.js';
 
 const byId = id => document.getElementById(id);
 const node = (tag, text, className) => {const el=document.createElement(tag); if(text!==undefined)el.textContent=text; if(className)el.className=className; return el;};
@@ -9,6 +9,8 @@ const MAX_BYTES = 8*1024*1024;
 async function init(){
   if(!byId('dashboard') || !byId('portfolio') || !byId('student-select'))return; // student portal only
   const user=await requireUser(); if(!user)return;
+  const galleryReady=await db.from('artworks').select('uploaded_by').limit(1);
+  if(missingSchema(galleryReady.error,'uploaded_by'))return;
   // If an older student-upload form exists, avoid installing a duplicate.
   if(byId('student-art-form'))return;
   const section=node('section',undefined,'student-art-upload');

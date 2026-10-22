@@ -5,6 +5,11 @@
 
 /* --- LESSON BOOKING SECTION --- */
 
+.lesson-past-date { font-weight: 400; color: var(--ink2); }
+.lesson-manager-list li { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.lesson-manager-list button { flex: none; }
+@media (max-width: 540px) { .lesson-manager-list li { display: block; } }
+
 .booking-section {
   margin-top: 2rem;
 }

@@ -1,4 +1,4 @@
-import {db, requireUser, signedArtwork} from './client.js';
+import {db, requireUser, signedArtwork, missingSchema} from './client.js';
 
 const $ = id => document.getElementById(id);
 const node = (tag, text, className) => {
@@ -39,7 +39,6 @@ function mount(){
     else target.prepend(wrapper);
   }else{
     $('portfolio').insertAdjacentElement('beforebegin',wrapper);
-    target.classList.add('folder-manager-ready');
   }
   form.addEventListener('submit',createFolder);
   $('student-select').addEventListener('change',()=>{activeFolder='all';refresh();});
@@ -51,10 +50,19 @@ async function refresh(){
   tell('');
   const [folderRes,artRes]=await Promise.all([
     db.from('art_folders').select('id,name').eq('student_id',id).order('created_at'),
-    db.from('artworks').select('id,title,notes,storage_path,folder_id,uploaded_by').eq('student_id',id).order('created_at',{ascending:false})
+    db.from('artworks').select('id,title,notes,storage_path,folder_id,uploaded_by').eq('student_id',id).eq('category','art').order('created_at',{ascending:false})
   ]);
   if(stamp!==sequence||id!==currentStudent())return;
-  if(folderRes.error||artRes.error){tell((folderRes.error||artRes.error).message,true);return;}
+  if(folderRes.error||artRes.error){
+    $('portfolio')?.parentElement.classList.remove('folder-manager-ready');
+    const missing=missingSchema(folderRes.error,'art_folders')
+      || ['category','folder_id','uploaded_by'].some(column=>missingSchema(artRes.error,column));
+    $('folder-manager').classList.toggle('hidden',missing);
+    if(!missing)tell((folderRes.error||artRes.error).message,true);
+    return;
+  }
+  $('folder-manager').classList.remove('hidden');
+  if(!instructor)$('portfolio').parentElement.classList.add('folder-manager-ready');
   currentFolders=folderRes.data||[];currentArt=artRes.data||[];
   if(activeFolder!=='all'&&!currentFolders.some(f=>f.id===activeFolder))activeFolder='all';
   await render(stamp);
@@ -124,13 +132,16 @@ async function deleteFolder(folder){
 async function deleteArtwork(art){
   if(!confirm(`Permanently delete “${art.title}” from the portfolio? This cannot be undone.`))return;
   const id=activeStudent;
-  const {data,error}=await db.from('artworks').delete().eq('id',art.id).eq('student_id',id).select('id');
+  const {data,error}=await db.from('artworks').delete().eq('id',art.id).eq('student_id',id)
+    .eq('category','art').select('id,student_id,title,notes,storage_path,folder_id,category,uploaded_by,created_at');
   if(error)return tell(error.message,true);
   if(!data?.length)return tell('Deletion was not authorized.',true);
   const storage=await db.storage.from('student-art').remove([art.storage_path]);
-  await refresh();
-  if(storage.error)tell('Artwork removed from the portfolio, but the stored file could not be deleted. Please ask the instructor to clean up storage.',true);
-  else tell('Artwork permanently deleted.');
+  if(storage.error){
+    const restored=await db.from('artworks').insert(data[0]);
+    await refresh();
+    tell(restored.error?'The stored image could not be deleted and its listing could not be restored. Contact the instructor.':'The stored image could not be deleted. The listing was restored so you can try again.',true);
+  }else{await refresh();tell('Artwork permanently deleted.');}
 }
 
 async function start(){

@@ -9,3 +9,10 @@ export function el(tag,text,cls){const node=document.createElement(tag);if(text!
 export function dateLabel(value){return new Date(value).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'});}
 export async function requireUser(){if(!configured){status('First configure assets/config.js with your Supabase URL and publishable key.',true);return null;}const {data:{user},error}=await db.auth.getUser();if(error||!user){location.replace('student-login.html');return null;}return user;}
 export async function signedArtwork(path){if(!path)return null;const {data,error}=await db.storage.from('student-art').createSignedUrl(path,3600);if(error)throw error;return data.signedUrl;}
+export function missingSchema(error, name){
+  if(!error)return false;
+  const message=String(error.message||'').toLowerCase();
+  return message.includes(name.toLowerCase())
+    && (['42703','42P01','PGRST204','PGRST205'].includes(error.code)
+      || message.includes('does not exist') || message.includes('schema cache'));
+}

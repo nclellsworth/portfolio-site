@@ -7,6 +7,7 @@ A static GitHub Pages starter for parent-controlled student dashboards, instruct
 - `student-portal.html` — private portfolio, dreams, lesson history, booking widget
 - `instructor-portal.html` — instructor-only management
 - `reset-password.html` — password recovery destination
+- `set-password.html` — invitation password setup
 - `assets/config.js`, `assets/client.js`, `assets/student.js`, `assets/instructor.js`, `assets/portal.css`
 - `supabase/schema.sql` — **do not** host this SQL file; run it from Supabase SQL Editor
 
@@ -14,7 +15,7 @@ No changes to your existing `style.css` are required. Pages inherit your site st
 
 ## One-time setup
 1. Create a new project at Supabase. Go to **SQL Editor** and run `supabase/schema.sql` exactly once. This is written for a fresh project, not for repeated execution.
-2. Under **Authentication > Providers > Email**, keep email/password enabled. **Disable public self sign-up**: users should be created by the instructor through the Supabase Auth dashboard. If email confirmation is used, ensure users have a way to set a password, e.g. an invite/recovery email. Configure **Authentication > URL Configuration**: set the site URL to your real custom domain (`https://nicoleellsworthart.com`) and add `https://nicoleellsworthart.com/reset-password.html` to redirect URLs. Also add `https://www.nicoleellsworthart.com/reset-password.html` if serving the www version. Test from the real HTTPS domain rather than `file://`.
+2. Under **Authentication > Providers > Email**, keep email/password enabled. **Disable public self sign-up**: users should be created by the instructor through the Supabase Auth dashboard. If email confirmation is used, ensure users have a way to set a password, e.g. an invite/recovery email. Configure **Authentication > URL Configuration**: set the site URL to your real custom domain (`https://nicoleellsworthart.com`) and add both `https://nicoleellsworthart.com/reset-password.html` and `https://nicoleellsworthart.com/set-password.html` to redirect URLs. Add both www versions if serving the www domain. Test from the real HTTPS domain rather than `file://`.
 3. In **Authentication > Users**, create an account for yourself. Obtain its `User ID` UUID. In Supabase SQL Editor, run this once with your UUID:
    ```sql
    insert into public.instructors(user_id) values ('REPLACE_WITH_YOUR_AUTH_USER_UUID');
@@ -49,3 +50,23 @@ No changes to your existing `style.css` are required. Pages inherit your site st
 
 ## Files and code ownership
 The Supabase URL and publishable key are **public by design**; policies and authenticated users enforce permissions. Never place student photos in `artImages/` on GitHub Pages if they are meant to be private.
+
+## Invitation password setup
+
+The site includes `set-password.html` for invited users to create their first password. In Supabase **Authentication > URL Configuration**, add `https://nicoleellsworthart.com/set-password.html` to Redirect URLs (and the www version if you serve it). Invite users from **Authentication > Users > Add user > Send invitation**. For Dashboard invitations, set the Site URL to that set-password URL if the Dashboard does not offer a separate invitation redirect field. For an Admin API invitation, pass that URL as `redirectTo`. Keep `reset-password.html` in Redirect URLs for password resets.
+
+Test with a newly invited account: open the email link, enter and confirm a password, then sign in through `student-login.html`. Link the invited account's Auth User ID to a student profile in the instructor portal. The invitation page does not create a student profile.
+
+## Gallery upgrade for an existing portal
+
+Existing artwork remains readable before this upgrade; folder controls, Student inspo, and student uploads become available after the database migration.
+
+Before publishing the updated student and instructor pages, run `supabase/migrations/20261021_student_galleries.sql` once in the Supabase SQL Editor. It adds private Student inspo images, portfolio folders, student uploads and deletion permissions while retaining existing artwork as Unfiled. Do not rerun `schema.sql` against an existing database.
+
+Check with two separate student accounts: each should be able to upload and delete only images for its linked profiles, create and rename folders, and see its own Student inspo board. The instructor should be able to use both boards for any student. Deleting a folder keeps its artwork as Unfiled.
+
+## Session visibility upgrade
+
+Run `supabase/migrations/20261022_lesson_visibility.sql` once in the Supabase SQL Editor before publishing the updated student and instructor pages. Existing sessions remain visible by default. In the instructor portal, select a student and use **Hide from student** or **Restore to student** in Student sessions. Hidden lessons remain in the instructor list but cannot be fetched by linked student accounts.
+
+The student page groups scheduled future sessions under Upcoming. When a session's start time passes, it appears under Past & cancelled with normal-weight text; cancelled sessions appear there immediately. This grouping changes automatically while the page is open. Test the visibility control with a separate student account, not just the instructor's Student view.
