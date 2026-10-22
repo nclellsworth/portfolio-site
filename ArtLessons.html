@@ -495,6 +495,61 @@ font: 400 1.3rem 'Cormorant Garamond', serif;
   }
 }
 
+/* --- Student portal introduction --- */
+.student-portal-intro {
+  max-width: 850px;
+  margin-bottom: 2.5rem;
+}
+
+.student-portal-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 4rem;
+  max-width: 950px;
+  margin-top: 2rem;
+}
+
+.portal-feature {
+  padding-top: 1rem;
+  border-top: 1px solid var(--faint);
+}
+
+.portal-feature-number {
+  font: 300 .7rem 'Lato', sans-serif;
+  color: var(--neuron);
+  letter-spacing: .1em;
+}
+
+.portal-feature h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: .7rem 0 .5rem;
+}
+
+.portal-feature p {
+  font-size: .95rem;
+  line-height: 1.8;
+  color: var(--ink2);
+}
+
+.student-portal-note {
+  max-width: 800px;
+  margin-top: 2.5rem;
+  font-size: .9rem !important;
+  color: var(--muted) !important;
+  font-style: italic;
+}
+
+@media (max-width: 700px) {
+  .student-portal-features {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+}
+
+
 
   </style>
 <link rel="stylesheet" href="assets/navigation.css">
@@ -536,6 +591,7 @@ font: 400 1.3rem 'Cormorant Garamond', serif;
         <li><a href="#who-i-teach">Who I Teach</a></li>
         <li><a href="#sample-work">Artwork</a></li>
         <li><a href="#how-it-works">Lesson Options</a></li>
+        <li><a href="#student-portal-info">Student Portal</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#reviews">Reviews</a></li>
         <li><a href="#getting-started">Book a Consultation</a></li>
@@ -793,6 +849,73 @@ font: 400 1.3rem 'Cormorant Garamond', serif;
         can be discussed when you inquire.
       </p>
     </section>
+
+    
+<!-- STUDENT PORTAL -->
+<section class="lessons-section" id="student-portal-info">
+
+  <div class="section-label">For returning students</div>
+
+  <h2 class="lessons-heading">
+    A little home for your <em>creative journey.</em>
+  </h2>
+
+  <p class="student-portal-intro">
+    Art doesn't have to end when the lesson does! Students who attend
+    recurring lessons receive access to their own private online studio,
+    where they (or their parents) can collect inspiration, keep track of
+    assignments and projects, and see how far they've come. Think of it as a home for
+    all those ideas that haven't quite made it onto paper yet.
+  </p>
+
+  <div class="student-portal-features">
+
+    <div class="portal-feature">
+      <span class="portal-feature-number">01</span>
+      <h3>A growing portfolio</h3>
+      <p>
+        Upload and organize photos of your artwork, revisit
+        past creations, and watch your skills develop.
+      </p>
+    </div>
+
+    <div class="portal-feature">
+      <span class="portal-feature-number">02</span>
+      <h3>Ideas &amp; inspiration</h3>
+      <p>
+        Collect inspiration images and keep a list of dream
+        projects you'd love to bring to life.
+      </p>
+    </div>
+
+    <div class="portal-feature">
+      <span class="portal-feature-number">03</span>
+      <h3>Assignments &amp; progress</h3>
+      <p>
+        View assignments between lessons, check off completed
+        tasks, and keep track of your artistic goals.
+      </p>
+    </div>
+
+    <div class="portal-feature">
+      <span class="portal-feature-number">04</span>
+      <h3>Lessons, past &amp; future</h3>
+      <p>
+        Schedule upcoming lessons and revisit your lesson
+        history, all from one convenient place.
+      </p>
+    </div>
+
+  </div>
+
+  <p class="student-portal-note">
+    Each student has their own space. Parents with multiple children
+    can access their children's individual portfolios through a
+    single parent account.
+  </p>
+
+</section>
+
 
     <!-- STUDIO ASSISTANT: replace the placeholder with a real photo of Wallie -->
     <section class="lessons-section" id="meet-wallie">
